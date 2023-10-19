@@ -1,5 +1,5 @@
 {
-    "name": "af/auth",
+    "name": "callmeaf/auth",
     "description": "Manage Authenticates",
     "type": "library",
     "license": "MIT",
