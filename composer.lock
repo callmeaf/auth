@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "e6aa6f7950bd23e32757087e7d55c2f8",
+    "packages": [
+        {
+            "name": "callmeaf/base",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/callmeaf/base.git",
+                "reference": "ba20ac9349f302424eb5d46ba1c16222ae6ec2ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/callmeaf/base/zipball/ba20ac9349f302424eb5d46ba1c16222ae6ec2ac",
+                "reference": "ba20ac9349f302424eb5d46ba1c16222ae6ec2ac",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "metapackage",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Callmeaf\\Base\\CallmeafBaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Callmeaf\\Base\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "alikhoshkar",
+                    "email": "alikhoshkar2000@gmail.com"
+                }
+            ],
+            "description": "Base of each package you want use from callmeaf",
+            "support": {
+                "issues": "https://github.com/callmeaf/base/issues",
+                "source": "https://github.com/callmeaf/base/tree/v1.0.2"
+            },
+            "time": "2023-11-16T06:05:32+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}
