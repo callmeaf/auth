@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Af\\Auth\\": "src/"
+            "Callmeaf\\Auth\\": "src/"
         }
     },
     "authors": [
@@ -15,11 +15,13 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "callmeaf/base": "^1.0.0"
+    },
     "extra": {
         "laravel": {
             "providers": [
-                "Af\\Auth\\AfAuthServiceProvider"
+                "Callmeaf\\Auth\\CallmeafAuthServiceProvider"
             ]
         }
     }

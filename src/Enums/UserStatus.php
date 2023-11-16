@@ -1,6 +1,6 @@
 <?php
 
-namespace Af\Auth\Enums;
+namespace Callmeaf\Auth\Enums;
 
 enum UserStatus: int
 {

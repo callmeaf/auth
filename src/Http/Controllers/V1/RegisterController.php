@@ -1,17 +1,26 @@
 <?php
 
-namespace Af\Auth\Http\Controllers\V1;
+namespace Callmeaf\Auth\Http\Controllers\V1;
 
-use Af\Auth\Http\Requests\RegisterRequest;
-use Af\Auth\Models\User;
+use Callmeaf\Auth\Http\Requests\RegisterRequest;
+use Callmeaf\Auth\Models\User;
+use Callmeaf\Auth\Services\V1\AuthService;
 
 class RegisterController extends BaseController
 {
+    public function __construct(protected AuthService $authService)
+    {
+
+    }
     public function register(RegisterRequest $request)
     {
-        return response()->json([
-            'data' => User::create($request->all()),
-            'message' => 'User created successfully',
-        ],200);
+        return apiResponse([
+            'user' => $this->authService->register($request->all())->getModel()
+        ]);
+    }
+
+    public function registerViaMobile()
+    {
+
     }
 }

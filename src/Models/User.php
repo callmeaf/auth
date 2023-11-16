@@ -1,6 +1,6 @@
 <?php
 
-namespace Af\Auth\Models;
+namespace Callmeaf\Auth\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
