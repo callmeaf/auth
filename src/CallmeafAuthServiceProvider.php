@@ -4,7 +4,7 @@ namespace Callmeaf\Auth;
 
 use Illuminate\Support\ServiceProvider;
 
-class AfAuthServiceProvider extends ServiceProvider
+class CallmeafAuthServiceProvider extends ServiceProvider
 {
     public function boot()
     {
