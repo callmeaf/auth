@@ -16,7 +16,6 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "callmeaf/base": "*"
     },
     "extra": {
         "laravel": {
