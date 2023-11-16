@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Callmeaf\\Auth\\CallmeafAuthServiceProvider"
+                "Callmeaf\\Auth\\AfAuthServiceProvider"
             ]
         }
     }
