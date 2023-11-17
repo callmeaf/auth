@@ -16,7 +16,7 @@ class RegisterController extends BaseController
     {
         return apiResponse([
             'user' => $this->authService->register($request->all())->getModel()
-        ]);
+        ],__('callmeaf::base-v1.unknown_error'));
     }
 
     public function registerViaMobile()
