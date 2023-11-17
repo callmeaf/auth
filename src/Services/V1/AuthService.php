@@ -7,14 +7,15 @@ use Callmeaf\Base\Services\V1\BaseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class AuthService extends BaseService implements AuthServiceInterface
 {
     public function __construct(?Builder $query = null, ?Model $model = null, ?Collection $collection = null,protected array $defaultData = [])
     {
         parent::__construct($query, $model, $collection);
-        $this->query = app(config('af-auth.models.auth'))->query();
-        $this->defaultData = config('af-auth.default_values');
+        $this->query = app(config('callmeaf-auth.models.auth'))->query();
+        $this->defaultData = config('callmeaf-auth.default_values');
     }
 
     public function register(array $data): AuthService
@@ -26,6 +27,14 @@ class AuthService extends BaseService implements AuthServiceInterface
             'mobile' => @$data['mobile'],
             'email' => @$data['email'],
             'password' => @$data['password'],
+        ]);
+        return $this;
+    }
+
+    public function registerViaMobile(string $mobile): AuthService
+    {
+        $this->create([
+            'mobile' => $mobile,
         ]);
         return $this;
     }

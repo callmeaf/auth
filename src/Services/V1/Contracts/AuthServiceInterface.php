@@ -8,4 +8,5 @@ use Callmeaf\Base\Services\V1\Contracts\BaseServiceInterface;
 interface AuthServiceInterface extends BaseServiceInterface
 {
     public function register(array $data): AuthService;
+    public function registerViaMobile(string $mobile): AuthService;
 }

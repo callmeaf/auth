@@ -1,6 +1,6 @@
 <?php
 
-namespace Callmeaf\Auth\Http\Controllers\V1;
+namespace Callmeaf\Auth\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 

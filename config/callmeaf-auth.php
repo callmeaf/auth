@@ -19,7 +19,5 @@ return [
         'status' => \Callmeaf\Auth\Enums\UserStatus::ACTIVE,
         'type' => \Callmeaf\Auth\Enums\UserType::NORMAL,
     ],
-    'models' => [
-        'auth' => \Callmeaf\Auth\Models\User::class,
-    ],
+    'model' => \Callmeaf\User\Models\User::class,
 ];

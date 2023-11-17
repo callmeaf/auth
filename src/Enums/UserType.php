@@ -4,6 +4,6 @@ namespace Callmeaf\Auth\Enums;
 
 enum UserType: int
 {
-    case NORMAL = 0;
-    case VIP = 1;
+    case NORMAL = 1;
+    case VIP = 2;
 }

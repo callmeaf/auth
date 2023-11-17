@@ -1,12 +1,14 @@
 <?php
 
-namespace Callmeaf\Auth\Http\Requests;
+namespace Callmeaf\Auth\Http\Requests\Api\V1;
 
-use Callmeaf\Auth\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
+use User;
 
 class RegisterViaMobileRequest extends FormRequest
 {
@@ -34,8 +36,11 @@ class RegisterViaMobileRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
+        throw new HttpResponseException(apiResponse([
             'errors' => $validator->errors()->all(),
-        ], 422));
+        ],  (new ValidationException($validator))->getMessage(),
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            ),
+        );
     }
 }
