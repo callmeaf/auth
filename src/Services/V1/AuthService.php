@@ -4,17 +4,22 @@ namespace Callmeaf\Auth\Services\V1;
 
 use Callmeaf\Auth\Services\V1\Contracts\AuthServiceInterface;
 use Callmeaf\Base\Services\V1\BaseService;
+use Callmeaf\User\Http\Resources\V1\Api\UserCollection;
+use Callmeaf\User\Http\Resources\V1\Api\UserResource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class AuthService extends BaseService implements AuthServiceInterface
 {
-    public function __construct(?Builder $query = null, ?Model $model = null, ?Collection $collection = null,protected array $defaultData = [])
+    public function __construct(?Builder $query = null, ?Model $model = null, ?Collection $collection = null, ?JsonResource $resource = null, ?ResourceCollection $resourceCollection = null, array $defaultData = [])
     {
-        parent::__construct($query, $model, $collection);
-        $this->query = app(config('callmeaf-auth.models.auth'))->query();
+        parent::__construct($query, $model, $collection, $resource, $resourceCollection, $defaultData);
+        $this->query = app(config('callmeaf-auth.model'))->query();
+        $this->resource = config('callmeaf-auth.model_resource');
+        $this->resourceCollection = config('callmeaf-auth.model_resource_collection');
         $this->defaultData = config('callmeaf-auth.default_values');
     }
 

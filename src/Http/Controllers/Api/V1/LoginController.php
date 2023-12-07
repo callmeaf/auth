@@ -2,7 +2,9 @@
 
 namespace Callmeaf\Auth\Http\Controllers\Api\V1;
 
-class LoginController extends BaseController
+use Callmeaf\Base\Http\Controllers\Api\V1\ApiController;
+
+class LoginController extends ApiController
 {
 
 }

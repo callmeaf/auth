@@ -2,13 +2,14 @@
 
 namespace Callmeaf\Auth\Http\Requests\Api\V1;
 
+use Callmeaf\User\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
-use User;
 
 class RegisterViaMobileRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class RegisterViaMobileRequest extends FormRequest
     public function rules(): array
     {
         return collect([
-            'mobile' => ['string','digits:11',Rule::unique(User::class,'mobile')],
+            'mobile' => ['string', 'digits:11', Rule::unique(config('callmeaf-auth.model'), 'mobile')],
         ])->map(
             fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register_via_mobile")))
         ->toArray();
