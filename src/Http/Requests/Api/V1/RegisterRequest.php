@@ -2,8 +2,8 @@
 
 namespace Callmeaf\Auth\Http\Requests\Api\V1;
 
-use Callmeaf\Auth\Enums\UserStatus;
-use Callmeaf\Auth\Enums\UserType;
+use Callmeaf\User\Enums\UserStatus;
+use Callmeaf\User\Enums\UserType;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;

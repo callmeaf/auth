@@ -6,31 +6,24 @@ use Illuminate\Support\ServiceProvider;
 
 class CallmeafAuthServiceProvider extends ServiceProvider
 {
+    private const CONFIGS_DIR = __DIR__ . '/../config';
+    private const ROUTES_DIR = __DIR__ . '/../routes';
     public function boot()
     {
-        $this->registerRoute();
         $this->registerConfig();
-        $this->registerMigration();
-    }
-
-    private function registerRoute()
-    {
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->registerRoute();
     }
 
     private function registerConfig()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/callmeaf-auth.php','callmeaf-auth');
+        $this->mergeConfigFrom(self::CONFIGS_DIR . '/callmeaf-auth.php','callmeaf-auth');
         $this->publishes([
-            __DIR__ . '/../config/callmeaf-auth.php' => config_path('callmeaf-user.php'),
+            self::CONFIGS_DIR . '/callmeaf-auth.php' => config_path('callmeaf-user.php'),
         ],'callmeaf-auth-config');
     }
 
-    private function registerMigration()
+    private function registerRoute()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->publishes([
-            __DIR__ . '/../database/migrations' => database_path('migrations')
-        ],'callmeaf-auth-migrations');
+        $this->loadRoutesFrom(self::ROUTES_DIR . '/v1/api.php');
     }
 }

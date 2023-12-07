@@ -18,7 +18,7 @@ class RegisterController extends ApiController
         try {
             return apiResponse([
                 'user' => $this->authService->register($request->all())->getModel(true)
-            ],__('callmeaf::base-v1.successful_created'));
+            ],__('callmeaf_base::v1.successful_created'));
         } catch (\Exception $exception) {
             return apiResponse([]);
         }
@@ -28,6 +28,6 @@ class RegisterController extends ApiController
     {
         return apiResponse([
             'user' => $this->authService->registerViaMobile($request->get('mobile'))->getModel(true),
-        ],__('callmeaf::base-v1.successful_created'));
+        ],__('callmeaf_base::v1.successful_created'));
     }
 }
