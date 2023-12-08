@@ -9,4 +9,5 @@ interface AuthServiceInterface extends BaseServiceInterface
 {
     public function register(array $data): AuthService;
     public function registerViaMobile(string $mobile): AuthService;
+    public function registerViaEmail(string $email): AuthService;
 }

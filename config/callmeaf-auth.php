@@ -14,6 +14,9 @@ return [
         'register_via_mobile' => [
             'mobile' => true,
         ],
+        'register_via_email' => [
+            'email' => true,
+        ],
     ],
     'default_values' => [
         'status' => \Callmeaf\User\Enums\UserStatus::ACTIVE,

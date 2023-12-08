@@ -2,6 +2,7 @@
 
 namespace Callmeaf\Auth\Services\V1;
 
+use Callmeaf\Auth\Events\Registered;
 use Callmeaf\Auth\Services\V1\Contracts\AuthServiceInterface;
 use Callmeaf\Base\Services\V1\BaseService;
 use Callmeaf\User\Http\Resources\V1\Api\UserCollection;
@@ -33,6 +34,7 @@ class AuthService extends BaseService implements AuthServiceInterface
             'email' => @$data['email'],
             'password' => @$data['password'],
         ]);
+        Registered::dispatch($this->model);
         return $this;
     }
 
@@ -40,6 +42,14 @@ class AuthService extends BaseService implements AuthServiceInterface
     {
         $this->create([
             'mobile' => $mobile,
+        ]);
+        return $this;
+    }
+
+    public function registerViaEmail(string $email): AuthService
+    {
+        $this->create([
+            'email' => $email,
         ]);
         return $this;
     }
