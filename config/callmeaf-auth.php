@@ -25,4 +25,10 @@ return [
     'model' => \Callmeaf\User\Models\User::class,
     'model_resource' => \Callmeaf\User\Http\Resources\V1\Api\UserResource::class,
     'model_resource_collection' => \Callmeaf\User\Http\Resources\V1\Api\UserCollection::class,
+    'events' => [
+        \Callmeaf\Auth\Events\Registered::class => [
+            \Callmeaf\Auth\Listeners\SendWelcomeSmsToUser::class,
+            \Callmeaf\Auth\Listeners\SendWelcomeMailToUser::class
+        ],
+    ],
 ];

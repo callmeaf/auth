@@ -38,7 +38,7 @@ class RegisterViaMobileRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(apiResponse([
-            'errors' => $validator->errors()->all(),
+            'errors' => $validator->errors(),
         ],  (new ValidationException($validator))->getMessage(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             ),

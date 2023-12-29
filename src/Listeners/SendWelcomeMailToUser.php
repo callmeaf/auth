@@ -3,10 +3,10 @@
 namespace Callmeaf\Auth\Listeners;
 
 use Callmeaf\Auth\Events\Registered;
-use Illuminate\Support\Facades\Log;
+use Callmeaf\Auth\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 
-class SendWelcomeSmsToUser
+class SendWelcomeMailToUser
 {
     /**
      * Create the event listener.
@@ -21,9 +21,9 @@ class SendWelcomeSmsToUser
      */
     public function handle(Registered $event): void
     {
-        $mobile = $event->user->mobile;
-        if($mobile) {
-            // TODO: mobile configuration for sending sms
+        $email = $event->user->email;
+        if($email) {
+            Mail::to($email)->send(new WelcomeMail());
         }
     }
 }

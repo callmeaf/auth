@@ -5,8 +5,6 @@ namespace Callmeaf\Auth\Services\V1;
 use Callmeaf\Auth\Events\Registered;
 use Callmeaf\Auth\Services\V1\Contracts\AuthServiceInterface;
 use Callmeaf\Base\Services\V1\BaseService;
-use Callmeaf\User\Http\Resources\V1\Api\UserCollection;
-use Callmeaf\User\Http\Resources\V1\Api\UserResource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -40,7 +38,7 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function registerViaMobile(string $mobile): AuthService
     {
-        $this->create([
+        $this->register([
             'mobile' => $mobile,
         ]);
         return $this;
@@ -48,7 +46,7 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function registerViaEmail(string $email): AuthService
     {
-        $this->create([
+        $this->register([
             'email' => $email,
         ]);
         return $this;
