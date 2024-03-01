@@ -9,4 +9,7 @@ return [
             'link' => 'Login to your account',
         ],
     ],
+    'errors' => [
+        'user_account_not_found' => 'User account not found.'
+    ],
 ];

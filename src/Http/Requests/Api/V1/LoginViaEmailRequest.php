@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegisterViaMobileRequest extends FormRequest
+class LoginViaEmailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,12 @@ class RegisterViaMobileRequest extends FormRequest
     public function rules(): array
     {
         return collect([
-            'mobile' => ['string', 'digits:11','starts_with:09', Rule::unique(config('callmeaf-auth.model'), 'mobile')],
+            'email' => ['string', 'email','max:255', Rule::exists(config('callmeaf-auth.model'), 'email')],
+            'password' => ['string'],
+            'remember_me' => ['accepted'],
         ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register_via_mobile")))
-        ->toArray();
+            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_email")))
+            ->toArray();
     }
 
     protected function failedValidation(Validator $validator)
@@ -39,7 +41,7 @@ class RegisterViaMobileRequest extends FormRequest
             'errors' => $validator->errors(),
         ],  (new ValidationException($validator))->getMessage(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            ),
+        ),
         );
     }
 }

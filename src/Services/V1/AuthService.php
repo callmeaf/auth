@@ -3,6 +3,7 @@
 namespace Callmeaf\Auth\Services\V1;
 
 use Callmeaf\Auth\Events\Registered;
+use Callmeaf\Auth\Exceptions\UserAccountNotFoundException;
 use Callmeaf\Auth\Services\V1\Contracts\AuthServiceInterface;
 use Callmeaf\Base\Services\V1\BaseService;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 
 class AuthService extends BaseService implements AuthServiceInterface
 {
@@ -44,11 +47,31 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function registerViaEmail(string $email): AuthService
+    public function registerViaEmail(string $email,string $password): AuthService
     {
         $this->register([
             'email' => $email,
+            'password' => $password,
         ]);
         return $this;
+    }
+
+    public function loginViaEmail(string $email, string $password,bool $rememberMe): AuthService
+    {
+        if(!Auth::attempt([
+            'email' => $email,
+            'password' => $password
+        ])) {
+            throw new UserAccountNotFoundException();
+        }
+        $this->model = Auth::user();
+
+        return $this;
+    }
+
+    public function createToken(): string
+    {
+        $model = $this->model;
+        return $model->createToken($model->id)->plainTextToken;
     }
 }

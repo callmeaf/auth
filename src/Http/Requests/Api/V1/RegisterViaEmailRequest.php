@@ -2,11 +2,9 @@
 
 namespace Callmeaf\Auth\Http\Requests\Api\V1;
 
-use Callmeaf\User\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +28,7 @@ class RegisterViaEmailRequest extends FormRequest
     {
         return collect([
             'email' => ['string', 'email','max:255', Rule::unique(config('callmeaf-auth.model'), 'email')],
+            'password' => ['string','min:7','confirmed'],
         ])->map(
             fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register_via_email")))
             ->toArray();

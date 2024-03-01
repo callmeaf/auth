@@ -4,7 +4,6 @@ namespace Callmeaf\Auth\Http\Requests\Api\V1;
 
 use Callmeaf\User\Enums\UserStatus;
 use Callmeaf\User\Enums\UserType;
-use Callmeaf\User\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -38,6 +37,7 @@ class RegisterRequest extends FormRequest
             'mobile' => ['string','digits:11',Rule::unique(config('callmeaf-auth.model'),'mobile')],
             'national_code' => ['string','digits:10',Rule::unique(config('callmeaf-auth.model'),'national_code')],
             'email' => ['email',Rule::unique(config('callmeaf-auth.model'),'email')],
+            'password' => ['string','min:7'],
         ])->map(
             fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register")),
         )->toArray();

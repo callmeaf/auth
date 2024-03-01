@@ -10,12 +10,19 @@ return [
             'mobile' => true,
             'national_code' => true,
             'email' => true,
+            'password' => true,
         ],
         'register_via_mobile' => [
             'mobile' => true,
         ],
         'register_via_email' => [
             'email' => true,
+            'password' => true,
+        ],
+        'login_via_email' => [
+            'email' => true,
+            'password' => true,
+            'remember_me' => false,
         ],
     ],
     'default_values' => [

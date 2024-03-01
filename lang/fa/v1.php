@@ -9,4 +9,7 @@ return [
             'link' => 'ورود به حساب کاربری',
         ],
     ],
+    'errors' => [
+        'user_account_not_found' => 'حساب کاربری یافت نشد.'
+    ],
 ];
