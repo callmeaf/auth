@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginViaEmailRequest extends FormRequest
+class LoginViaMobileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,10 @@ class LoginViaEmailRequest extends FormRequest
     public function rules(): array
     {
         return collect([
-            'email' => ['string', 'email','max:255', Rule::exists(config('callmeaf-auth.model'), 'email')],
-            'password' => ['string'],
+            'mobile' => ['string','max:255', Rule::exists(config('callmeaf-auth.model'), 'mobile')],
             'remember_me' => [],
         ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_email")))
+            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_mobile")))
             ->toArray();
     }
 

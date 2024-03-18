@@ -24,6 +24,10 @@ return [
             'password' => true,
             'remember_me' => false,
         ],
+        'login_via_mobile' => [
+            'mobile' => true,
+            'remember_me' => false,
+        ],
     ],
     'default_values' => [
         'status' => \Callmeaf\User\Enums\UserStatus::ACTIVE,
@@ -36,6 +40,24 @@ return [
         \Callmeaf\Auth\Events\Registered::class => [
             \Callmeaf\Auth\Listeners\SendWelcomeSmsToUser::class,
             \Callmeaf\Auth\Listeners\SendWelcomeMailToUser::class
+        ],
+    ],
+    'resources' => [
+        'register' => [
+            'id',
+            'first_name',
+            'last_name',
+            'mobile',
+            'email',
+            'national_code',
+        ],
+        'registerViaMobile' => [
+            'id',
+            'mobile',
+        ],
+        'registerViaEmail' => [
+            'id',
+            'email',
         ],
     ],
 ];

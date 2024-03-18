@@ -17,7 +17,7 @@ class RegisterController extends ApiController
     public function register(RegisterRequest $request)
     {
         try {
-            $user = $this->authService->register(data: $request->all())->getModel(true);
+            $user = $this->authService->register(data: $request->validated())->getModel(true,attributes: config('callmeaf-auth.resources.register'));
             return apiResponse([
                 'user' => $user
             ],__('callmeaf-base::v1.successful_created',[
@@ -32,7 +32,7 @@ class RegisterController extends ApiController
     public function registerViaMobile(RegisterViaMobileRequest $request)
     {
         try {
-            $user = $this->authService->registerViaMobile(mobile: $request->get('mobile'))->getModel(true);
+            $user = $this->authService->registerViaMobile(mobile: $request->get('mobile'))->getModel(true,attributes: config('callmeaf-auth.resources.registerViaMobile'));
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_created',[
@@ -48,7 +48,7 @@ class RegisterController extends ApiController
     public function registerViaEmail(RegisterViaEmailRequest $request)
     {
         try {
-            $user = $this->authService->registerViaEmail(email: $request->get('email'),password: $request->get('password'))->getModel(true);
+            $user = $this->authService->registerViaEmail(email: $request->get('email'),password: $request->get('password'))->getModel(true,attributes: config('callmeaf-auth.resources.registerViaEmail'));
             return apiResponse([
                 'user' => $user,
             ],__('callmeaf-base::v1.successful_created',[

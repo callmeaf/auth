@@ -58,13 +58,23 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function loginViaEmail(string $email, string $password,bool $rememberMe): AuthService
     {
-        if(!Auth::attempt([
+        $this->attempt([
             'email' => $email,
             'password' => $password
-        ])) {
-            throw new UserAccountNotFoundException();
+        ]);
+
+        return $this;
+    }
+
+    public function loginViaMobile(string $mobile, ?string $password, bool $rememberMe): AuthService
+    {
+        if($password) {
+            $this->attempt([
+                'mobile' => $mobile,
+                'password' => $password,
+            ]);
         }
-        $this->model = Auth::user();
+
 
         return $this;
     }
@@ -73,5 +83,14 @@ class AuthService extends BaseService implements AuthServiceInterface
     {
         $model = $this->model;
         return $model->createToken($model->id)->plainTextToken;
+    }
+
+
+    private function attempt(array $credentials): void
+    {
+        if(!Auth::attempt($credentials)) {
+            throw new UserAccountNotFoundException();
+        }
+        $this->model = Auth::user();
     }
 }

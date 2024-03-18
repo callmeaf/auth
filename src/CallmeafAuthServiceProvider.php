@@ -2,9 +2,6 @@
 
 namespace Callmeaf\Auth;
 
-use Callmeaf\Auth\Events\Registered;
-use Callmeaf\Auth\Listeners\SendWelcomeMailToUser;
-use Callmeaf\Auth\Listeners\SendWelcomeSmsToUser;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
