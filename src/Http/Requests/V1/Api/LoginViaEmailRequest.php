@@ -1,6 +1,6 @@
 <?php
 
-namespace Callmeaf\Auth\Http\Requests\Api\V1;
+namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;

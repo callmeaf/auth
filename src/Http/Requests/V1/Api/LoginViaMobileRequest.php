@@ -1,6 +1,6 @@
 <?php
 
-namespace Callmeaf\Auth\Http\Requests\Api\V1;
+namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegisterViaEmailRequest extends FormRequest
+class LoginViaMobileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,11 @@ class RegisterViaEmailRequest extends FormRequest
     public function rules(): array
     {
         return collect([
-            'email' => ['string', 'email','max:255', Rule::unique(config('callmeaf-auth.model'), 'email')],
-            'password' => ['string','min:7','confirmed'],
+            'mobile' => ['string','max:255', Rule::exists(config('callmeaf-auth.model'), 'mobile')],
+            'password' => ['string'],
+            'remember_me' => [],
         ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register_via_email")))
+            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_mobile")))
             ->toArray();
     }
 

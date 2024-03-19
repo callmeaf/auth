@@ -1,12 +1,12 @@
 <?php
 
-namespace Callmeaf\Auth\Http\Controllers\Api\V1;
+namespace Callmeaf\Auth\Http\Controllers\V1\Api;
 
-use Callmeaf\Auth\Http\Requests\Api\V1\RegisterRequest;
-use Callmeaf\Auth\Http\Requests\Api\V1\RegisterViaEmailRequest;
-use Callmeaf\Auth\Http\Requests\Api\V1\RegisterViaMobileRequest;
+use Callmeaf\Auth\Http\Requests\V1\Api\RegisterRequest;
+use Callmeaf\Auth\Http\Requests\V1\Api\RegisterViaEmailRequest;
+use Callmeaf\Auth\Http\Requests\V1\Api\RegisterViaMobileRequest;
 use Callmeaf\Auth\Services\V1\AuthService;
-use Callmeaf\Base\Http\Controllers\Api\V1\ApiController;
+use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 
 class RegisterController extends ApiController
 {

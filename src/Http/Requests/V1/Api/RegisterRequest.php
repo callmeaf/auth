@@ -1,6 +1,6 @@
 <?php
 
-namespace Callmeaf\Auth\Http\Requests\Api\V1;
+namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
 use Callmeaf\User\Enums\UserStatus;
 use Callmeaf\User\Enums\UserType;

@@ -73,8 +73,9 @@ class AuthService extends BaseService implements AuthServiceInterface
                 'mobile' => $mobile,
                 'password' => $password,
             ]);
+        } else {
+            $this->freshQuery()->where('mobile',$mobile)->first();
         }
-
 
         return $this;
     }

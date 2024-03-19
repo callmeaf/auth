@@ -1,6 +1,19 @@
 <?php
 
 return [
+    'default_values' => [
+        'status' => \Callmeaf\User\Enums\UserStatus::ACTIVE,
+        'type' => \Callmeaf\User\Enums\UserType::NORMAL,
+    ],
+    'model' => \Callmeaf\User\Models\User::class,
+    'model_resource' => \Callmeaf\User\Http\Resources\V1\Api\UserResource::class,
+    'model_resource_collection' => \Callmeaf\User\Http\Resources\V1\Api\UserCollection::class,
+    'events' => [
+        \Callmeaf\Auth\Events\Registered::class => [
+            \Callmeaf\Auth\Listeners\SendWelcomeSmsToUser::class,
+            \Callmeaf\Auth\Listeners\SendWelcomeMailToUser::class
+        ],
+    ],
     'validations' => [
         'register' => [
             'status' => true,
@@ -26,20 +39,8 @@ return [
         ],
         'login_via_mobile' => [
             'mobile' => true,
+            'password' => false,
             'remember_me' => false,
-        ],
-    ],
-    'default_values' => [
-        'status' => \Callmeaf\User\Enums\UserStatus::ACTIVE,
-        'type' => \Callmeaf\User\Enums\UserType::NORMAL,
-    ],
-    'model' => \Callmeaf\User\Models\User::class,
-    'model_resource' => \Callmeaf\User\Http\Resources\V1\Api\UserResource::class,
-    'model_resource_collection' => \Callmeaf\User\Http\Resources\V1\Api\UserCollection::class,
-    'events' => [
-        \Callmeaf\Auth\Events\Registered::class => [
-            \Callmeaf\Auth\Listeners\SendWelcomeSmsToUser::class,
-            \Callmeaf\Auth\Listeners\SendWelcomeMailToUser::class
         ],
     ],
     'resources' => [
