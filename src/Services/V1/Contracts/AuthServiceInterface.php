@@ -11,6 +11,7 @@ interface AuthServiceInterface extends BaseServiceInterface
     public function registerViaMobile(string $mobile): AuthService;
     public function registerViaEmail(string $email,string $password): AuthService;
     public function loginViaEmail(string $email,string $password,bool $rememberMe): AuthService;
-    public function loginViaMobile(string $mobile,?string $password,bool $rememberMe): AuthService;
+    public function loginViaMobile(string $mobile,string $password,bool $rememberMe): AuthService;
+    public function loginViaOtp(string $mobile,string $code,bool $rememberMe): AuthService;
     public function createToken(): string;
 }

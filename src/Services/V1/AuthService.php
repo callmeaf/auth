@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\UnauthorizedException;
 
 class AuthService extends BaseService implements AuthServiceInterface
 {
@@ -27,7 +26,7 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function register(array $data): AuthService
     {
-        $this->create([
+        $this->create(data: [
             'first_name' => @$data['first_name'],
             'last_name' => @$data['last_name'],
             'national_code' => @$data['national_code'],
@@ -41,7 +40,7 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function registerViaMobile(string $mobile): AuthService
     {
-        $this->register([
+        $this->register(data: [
             'mobile' => $mobile,
         ]);
         return $this;
@@ -49,7 +48,7 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function registerViaEmail(string $email,string $password): AuthService
     {
-        $this->register([
+        $this->register(data: [
             'email' => $email,
             'password' => $password,
         ]);
@@ -58,26 +57,33 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function loginViaEmail(string $email, string $password,bool $rememberMe): AuthService
     {
-        $this->attempt([
+        $this->attempt(credentials: [
             'email' => $email,
             'password' => $password
-        ]);
+        ],rememberMe: $rememberMe);
 
         return $this;
     }
 
-    public function loginViaMobile(string $mobile, ?string $password, bool $rememberMe): AuthService
+    public function loginViaMobile(string $mobile, string $password, bool $rememberMe): AuthService
     {
-        if($password) {
-            $this->attempt([
-                'mobile' => $mobile,
-                'password' => $password,
-            ]);
-        } else {
-            $this->freshQuery()->where('mobile',$mobile)->first();
-        }
+        $this->attempt(credentials: [
+            'mobile' => $mobile,
+            'password' => $password,
+        ],rememberMe: $rememberMe);
 
         return $this;
+    }
+
+    public function loginViaOtp(string $mobile, string $code, bool $rememberMe): AuthService
+    {
+        /* @var $otpService \Callmeaf\Otp\Services\V1\OtpService */
+        $otpService = app(config('callmeaf-otp.service'));
+        $result = $otpService->verifyCode(mobile: $mobile,code: $code);
+        if($result) {
+            $this->freshQuery()->where('mobile',$mobile)->first();
+        }
+       return $this;
     }
 
     public function createToken(): string
@@ -87,9 +93,9 @@ class AuthService extends BaseService implements AuthServiceInterface
     }
 
 
-    private function attempt(array $credentials): void
+    private function attempt(array $credentials,bool $rememberMe): void
     {
-        if(!Auth::attempt($credentials)) {
+        if(!Auth::attempt($credentials,$rememberMe)) {
             throw new UserAccountNotFoundException();
         }
         $this->model = Auth::user();

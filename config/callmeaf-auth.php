@@ -4,6 +4,8 @@ return [
     'model' => \Callmeaf\User\Models\User::class,
     'model_resource' => \Callmeaf\User\Http\Resources\V1\Api\UserResource::class,
     'model_resource_collection' => \Callmeaf\User\Http\Resources\V1\Api\UserCollection::class,
+    'service' => \Callmeaf\Auth\Services\V1\AuthService::class,
+    'service_interface' => \Callmeaf\Auth\Services\V1\Contracts\AuthServiceInterface::class,
     'default_values' => [
         'status' => \Callmeaf\User\Enums\UserStatus::ACTIVE,
         'type' => \Callmeaf\User\Enums\UserType::NORMAL,
@@ -39,7 +41,12 @@ return [
         ],
         'login_via_mobile' => [
             'mobile' => true,
-            'password' => false,
+            'password' => true,
+            'remember_me' => false,
+        ],
+        'login_via_otp' => [
+            'mobile' => true,
+            'code' => true,
             'remember_me' => false,
         ],
     ],
@@ -59,6 +66,15 @@ return [
         'registerViaEmail' => [
             'id',
             'email',
+        ],
+    ],
+    'controllers' => [
+        'register' => \Callmeaf\Auth\Http\Controllers\V1\Api\RegisterController::class,
+        'login' => \Callmeaf\Auth\Http\Controllers\V1\Api\LoginController::class,
+    ],
+    'middlewares' => [
+        'global' => [
+            'guest'
         ],
     ],
 ];

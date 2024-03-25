@@ -4,6 +4,7 @@ namespace Callmeaf\Auth\Http\Controllers\V1\Api;
 
 use Callmeaf\Auth\Http\Requests\V1\Api\LoginViaEmailRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\LoginViaMobileRequest;
+use Callmeaf\Auth\Http\Requests\V1\Api\LoginViaOtpRequest;
 use Callmeaf\Auth\Services\V1\AuthService;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 
@@ -33,6 +34,19 @@ class LoginController extends ApiController
             return apiResponse([
                 'token' => $token,
             ],__('callmeaf-base::v1.successful_logged_in'));
+        } catch (\Exception $exception) {
+            report($exception);
+            return apiResponse([],$exception);
+        }
+    }
+
+    public function loginViaOtp(LoginViaOtpRequest $request)
+    {
+        try {
+            $token = $this->authService->loginViaOtp(mobile: $request->get('mobile'),code: $request->get('code'),rememberMe: $request->get('remember_me'))->createToken();
+             return apiResponse([
+                 'token' => $token,
+             ],__('callmeaf-base::v1.successful_logged_in'));
         } catch (\Exception $exception) {
             report($exception);
             return apiResponse([],$exception);
