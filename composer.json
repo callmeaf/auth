@@ -17,7 +17,8 @@
     "minimum-stability": "dev",
     "require": {
         "callmeaf/base": "dev-master",
-        "callmeaf/user": "dev-master"
+        "callmeaf/user": "dev-master",
+        "callmeaf/otp": "dev-master"
     },
     "extra": {
         "laravel": {

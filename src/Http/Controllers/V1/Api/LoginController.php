@@ -43,7 +43,7 @@ class LoginController extends ApiController
     public function loginViaOtp(LoginViaOtpRequest $request)
     {
         try {
-            $token = $this->authService->loginViaOtp(mobile: $request->get('mobile'),code: $request->get('code'),rememberMe: $request->get('remember_me'))->createToken();
+            $token = $this->authService->loginViaOtp(mobile: $request->get('mobile'),code: $request->get('code'),rememberMe: $request->has('remember_me'))->createToken();
              return apiResponse([
                  'token' => $token,
              ],__('callmeaf-base::v1.successful_logged_in'));

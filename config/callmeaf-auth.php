@@ -49,6 +49,9 @@ return [
             'code' => true,
             'remember_me' => false,
         ],
+        'get_user' => [
+
+        ],
     ],
     'resources' => [
         'register' => [
@@ -71,10 +74,18 @@ return [
     'controllers' => [
         'register' => \Callmeaf\Auth\Http\Controllers\V1\Api\RegisterController::class,
         'login' => \Callmeaf\Auth\Http\Controllers\V1\Api\LoginController::class,
+        'auth' => \Callmeaf\Auth\Http\Controllers\V1\Api\AuthController::class,
     ],
     'middlewares' => [
-        'global' => [
-            'guest'
+        'global' => [],
+        'register' => [
+            'guest:sanctum',
+        ],
+        'login' => [
+            'guest:sanctum',
+        ],
+        'auth' => [
+            'auth:sanctum'
         ],
     ],
 ];

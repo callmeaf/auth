@@ -10,6 +10,8 @@ return [
         ],
     ],
     'errors' => [
-        'user_account_not_found' => 'User account not found.'
+        'user_account_not_found' => 'User account not found.',
+        'unauthorized' => 'Unauthorized.',
+        'authenticated' => 'Already Authenticated.',
     ],
 ];

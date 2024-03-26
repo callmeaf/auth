@@ -10,6 +10,8 @@ return [
         ],
     ],
     'errors' => [
-        'user_account_not_found' => 'حساب کاربری یافت نشد.'
+        'user_account_not_found' => 'حساب کاربری یافت نشد.',
+        'unauthorized' => 'احراز هویت نشده.',
+        'authenticated' => 'قبلا احراز هویت شده.',
     ],
 ];
