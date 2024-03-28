@@ -2,16 +2,18 @@
 
 namespace Callmeaf\Auth\Events;
 
-use Illuminate\Foundation\Auth\User;
+use Callmeaf\User\Models\User;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Registered
+class VerifiedEmail
 {
-    use Dispatchable, SerializesModels;
+    use SerializesModels,Dispatchable;
+
 
     /**
      * Create a new event instance.
+     *
      */
     public function __construct(public User $user)
     {

@@ -3,15 +3,21 @@
 namespace Callmeaf\Auth\Services\V1;
 
 use Callmeaf\Auth\Events\Registered;
+use Callmeaf\Auth\Events\VerifiedEmail;
+use Callmeaf\Auth\Exceptions\CurrentPasswordIncorrectException;
 use Callmeaf\Auth\Exceptions\UserAccountNotFoundException;
+use Callmeaf\Auth\Exceptions\UserAlreadyHasPasswordException;
 use Callmeaf\Auth\Services\V1\Contracts\AuthServiceInterface;
 use Callmeaf\Base\Services\V1\BaseService;
+use Callmeaf\Sms\Services\V1\SmsService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService extends BaseService implements AuthServiceInterface
 {
@@ -38,15 +44,16 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function registerViaMobile(string $mobile): AuthService
+    public function registerViaMobile(string $mobile,?string $password = null): AuthService
     {
         $this->register(data: [
             'mobile' => $mobile,
+            'password' => $password,
         ]);
         return $this;
     }
 
-    public function registerViaEmail(string $email,string $password): AuthService
+    public function registerViaEmail(string $email,?string $password = null): AuthService
     {
         $this->register(data: [
             'email' => $email,
@@ -81,7 +88,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         $otpService = app(config('callmeaf-otp.service'));
         $result = $otpService->verifyCode(mobile: $mobile,code: $code);
         if($result) {
-            $this->freshQuery()->where('mobile',$mobile)->first();
+            $this->freshQuery()->where(column: 'mobile',valueOrOperation: $mobile)->first();
         }
        return $this;
     }
@@ -92,6 +99,57 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $model->createToken($model->id)->plainTextToken;
     }
 
+    public function storePassword(string $password): AuthService
+    {
+        if(!is_null($this->model->password)) {
+            throw new UserAlreadyHasPasswordException();
+        }
+        $this->update([
+            'password' => $password,
+        ]);
+        return $this;
+    }
+
+    public function updatePassword(string $currentPassword, string $newPassword): AuthService
+    {
+        if(!Hash::check(value: $currentPassword,hashedValue: $this->model->password)) {
+            throw new CurrentPasswordIncorrectException();
+        }
+        $this->update(data: [
+            'password' => $newPassword,
+        ]);
+
+        return $this;
+    }
+
+    public function verifyEmail(): AuthService
+    {
+        $model = $this->model;
+        if (! $model->hasVerifiedEmail()) {
+            $model->markEmailAsVerified();
+            VerifiedEmail::dispatch($model);
+        }
+        $this->freshModel();
+        return $this;
+    }
+
+    public function logout(?Request $request = null): AuthService
+    {
+        $request = $request ?? request();
+        if(isApiRequest($request)) {
+            $this->model->tokens()->delete();
+        } else {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
+        return $this;
+    }
+
+    public function smsChannel(): SmsService
+    {
+        return config('callmeaf-auth.sms_channel');
+    }
 
     private function attempt(array $credentials,bool $rememberMe): void
     {

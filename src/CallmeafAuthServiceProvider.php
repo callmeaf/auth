@@ -41,6 +41,7 @@ class CallmeafAuthServiceProvider extends ServiceProvider
     private function registerRoute(): void
     {
         $this->loadRoutesFrom(self::ROUTES_DIR . '/v1/api.php');
+        $this->loadRoutesFrom(self::ROUTES_DIR . '/v1/web.php');
     }
 
     private function registerEvents(): void

@@ -3,9 +3,8 @@
 namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class LoginViaOtpRequest extends FormRequest
+class AuthPasswordUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +21,11 @@ class LoginViaOtpRequest extends FormRequest
      */
     public function rules(): array
     {
-        $otpModel = config('callmeaf-otp.model');
         return collect([
-            'mobile' => ['string','max:255', Rule::exists($otpModel, 'mobile'),Rule::exists(config('callmeaf-auth.model'), 'mobile')],
-            'code' => ['digits:' . config('callmeaf-otp.length'),Rule::exists($otpModel,'code')],
-            'remember_me' => [],
+            'current_password' => ['string'],
+            'new_password' => ['string','min:7','confirmed'],
         ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_otp")))
+            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.password_update")))
             ->toArray();
     }
 

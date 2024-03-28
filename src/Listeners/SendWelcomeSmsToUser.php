@@ -3,6 +3,7 @@
 namespace Callmeaf\Auth\Listeners;
 
 use Callmeaf\Auth\Events\Registered;
+use Callmeaf\Auth\Services\V1\AuthService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,9 +22,17 @@ class SendWelcomeSmsToUser
      */
     public function handle(Registered $event): void
     {
-        $mobile = $event->user->mobile;
+        $user = $event->user;
+        $mobile = $user->mobile;
         if($mobile) {
-            // TODO: mobile configuration for sending sms
+            $authService = app(AuthService::class);
+            $authService->smsChannel()->sendViaPattern(
+                pattern: config('callmeaf-kavenegar.patterns.welcome.template'),
+                mobile: $mobile,
+                values: [
+                    $user->first_name ?? '',
+                ],
+            );
         }
     }
 }

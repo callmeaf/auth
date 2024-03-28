@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix(config('callmeaf-base.prefix_api'))->middleware(config('callmeaf-auth.middlewares.global'))->group(function() {
+Route::prefix(config('callmeaf-base.api.prefix_url'))->as(config('callmeaf-base.api.prefix_route_name'))->middleware(config('callmeaf-auth.middlewares.global'))->group(function() {
     Route::controller(config('callmeaf-auth.controllers.register'))->middleware(config('callmeaf-auth.middlewares.register'))->group(function() {
         Route::post('/register','register');
         Route::post('/register_via_mobile','registerViaMobile');
@@ -15,5 +15,9 @@ Route::prefix(config('callmeaf-base.prefix_api'))->middleware(config('callmeaf-a
     });
     Route::controller(config('callmeaf-auth.controllers.auth'))->middleware(config('callmeaf-auth.middlewares.auth'))->group(function() {
         Route::get('/user','getUser');
+        Route::patch('/user','updateUser');
+        Route::post('/password','storePassword');
+        Route::patch('/password','updatePassword');
+        Route::delete('/logout','logout');
     });
 });

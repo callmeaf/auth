@@ -5,7 +5,7 @@ namespace Callmeaf\Auth\Http\Requests\V1\Api;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class LoginViaOtpRequest extends FormRequest
+class AuthUserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,14 @@ class LoginViaOtpRequest extends FormRequest
      */
     public function rules(): array
     {
-        $otpModel = config('callmeaf-otp.model');
+        $userId = $this->user()->id;
         return collect([
-            'mobile' => ['string','max:255', Rule::exists($otpModel, 'mobile'),Rule::exists(config('callmeaf-auth.model'), 'mobile')],
-            'code' => ['digits:' . config('callmeaf-otp.length'),Rule::exists($otpModel,'code')],
-            'remember_me' => [],
+            'first_name' => ['string','max:50'],
+            'last_name' => ['string','max:50'],
+            'national_code' => ['digits:10',Rule::unique(config('callmeaf-auth.model','national_code'))->ignore($userId)],
+            'email' => ['email',Rule::unique(config('callmeaf-auth.model','email'))->ignore($userId)],
         ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_otp")))
+            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.user_update")))
             ->toArray();
     }
 

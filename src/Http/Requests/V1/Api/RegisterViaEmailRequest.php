@@ -2,12 +2,8 @@
 
 namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Response;
 
 class RegisterViaEmailRequest extends FormRequest
 {
@@ -34,13 +30,4 @@ class RegisterViaEmailRequest extends FormRequest
             ->toArray();
     }
 
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(apiResponse([
-            'errors' => $validator->errors(),
-        ],  (new ValidationException($validator))->getMessage(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-        ),
-        );
-    }
 }

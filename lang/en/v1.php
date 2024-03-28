@@ -13,5 +13,7 @@ return [
         'user_account_not_found' => 'User account not found.',
         'unauthorized' => 'Unauthorized.',
         'authenticated' => 'Already Authenticated.',
+        'current_password_incorrect' => 'Current password incorrect.',
+        'user_has_already_password' => 'The desired user account has a password, use the `update password` method to change the password.',
     ],
 ];
