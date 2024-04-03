@@ -70,6 +70,9 @@ return [
             'current_password' => true,
             'new_password' => true,
         ],
+        'profile_image_update' => [
+            'image' => true,
+        ],
         'logout' => [
             //
         ],
@@ -134,6 +137,25 @@ return [
             'email',
             'email_verified_at',
             'national_code',
+        ],
+        'updateProfileImage' => [
+            'id',
+            'status',
+            'status_text',
+            'type',
+            'type_text',
+            'first_name',
+            'last_name',
+            'full_name',
+            'mobile',
+            'email',
+            'email_verified_at',
+            'national_code',
+            'image',
+            '!image' => [
+                'id',
+                'url'
+            ],
         ],
     ],
     'controllers' => [

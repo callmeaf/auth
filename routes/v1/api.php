@@ -18,6 +18,7 @@ Route::prefix(config('callmeaf-base.api.prefix_url'))->as(config('callmeaf-base.
         Route::patch('/user','updateUser');
         Route::post('/password','storePassword');
         Route::patch('/password','updatePassword');
+        Route::patch('/profile_image','profileImage');
         Route::delete('/logout','logout');
     });
 });
