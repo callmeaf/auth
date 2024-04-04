@@ -8,9 +8,10 @@ use Callmeaf\Base\Http\Controllers\V1\Web\WebController;
 
 class AuthController extends WebController
 {
-    public function __construct(protected AuthService $authService)
+    protected AuthService $authService;
+    public function __construct()
     {
-
+        $this->authService = app(config('callmeaf-auth.service'));
     }
 
     public function verifyEmail(AuthVerifyEmailRequest $request, $userId)

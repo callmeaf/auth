@@ -10,9 +10,10 @@ use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 
 class RegisterController extends ApiController
 {
-    public function __construct(protected AuthService $authService)
+    protected AuthService $authService;
+    public function __construct()
     {
-
+        $this->authService = app(config('callmeaf-auth.service'));
     }
     public function register(RegisterRequest $request)
     {

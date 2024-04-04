@@ -16,9 +16,10 @@ use Callmeaf\User\Http\Resources\V1\Api\UserResource;
 
 class AuthController extends ApiController
 {
-    public function __construct(protected AuthService $authService)
+    protected AuthService $authService;
+    public function __construct()
     {
-
+        $this->authService = app(config('callmeaf-auth.service'));
     }
 
     public function getUser(AuthUserShowRequest $request)
@@ -79,7 +80,7 @@ class AuthController extends ApiController
             )->getModel(asResource: true,attributes: config('callmeaf-auth.resources.updateProfileImage'));
              return apiResponse([
                  'user' => $user,
-             ],__('base::v1.successful_loaded'));
+             ],__('callmeaf-base::v1.successful_updated_non_title'));
         } catch (\Exception $exception) {
             report($exception);
             return apiResponse([],$exception);

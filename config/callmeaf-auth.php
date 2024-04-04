@@ -5,7 +5,6 @@ return [
     'model_resource' => \Callmeaf\User\Http\Resources\V1\Api\UserResource::class,
     'model_resource_collection' => \Callmeaf\User\Http\Resources\V1\Api\UserCollection::class,
     'service' => \Callmeaf\Auth\Services\V1\AuthService::class,
-    'service_interface' => \Callmeaf\Auth\Services\V1\Contracts\AuthServiceInterface::class,
     'sms_channel' => \Callmeaf\Kavenegar\Services\V1\KavenegarService::class,
     'default_values' => [
         'status' => \Callmeaf\User\Enums\UserStatus::ACTIVE,
