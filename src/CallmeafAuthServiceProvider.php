@@ -10,9 +10,13 @@ class CallmeafAuthServiceProvider extends ServiceProvider
     private const CONFIGS_DIR = __DIR__ . '/../config';
     private const CONFIGS_KEY = 'callmeaf-auth';
     private const CONFIG_GROUP = 'callmeaf-auth-config';
+    private const PASSWORD_CONFIGS_DIR = __DIR__ . '/../config';
+    private const PASSWORD_CONFIGS_KEY = 'callmeaf-password';
+    private const PASSWORD_CONFIG_GROUP = 'callmeaf-password-config';
 
     private const ROUTES_DIR = __DIR__ . '/../routes';
-
+    private const DATABASE_DIR = __DIR__ . '/../database';
+    private const DATABASE_GROUPS = 'callmeaf-user-migrations';
     private const RESOURCES_DIR = __DIR__ . '/../resources';
     private const VIEWS_NAMESPACE = 'callmeaf-auth';
     private const VIEWS_GROUP = 'callmeaf-auth-views';
@@ -25,6 +29,7 @@ class CallmeafAuthServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
         $this->registerRoute();
+        $this->registerMigration();
         $this->registerEvents();
         $this->registerViews();
         $this->registerLang();
@@ -36,12 +41,25 @@ class CallmeafAuthServiceProvider extends ServiceProvider
         $this->publishes([
             self::CONFIGS_DIR . '/callmeaf-auth.php' => config_path('callmeaf-auth.php'),
         ],self::CONFIG_GROUP);
+
+        $this->mergeConfigFrom(self::PASSWORD_CONFIGS_DIR . '/callmeaf-password.php',self::PASSWORD_CONFIGS_KEY);
+        $this->publishes([
+            self::PASSWORD_CONFIGS_DIR . '/callmeaf-password.php' => config_path('callmeaf-password.php'),
+        ],self::PASSWORD_CONFIG_GROUP);
     }
 
     private function registerRoute(): void
     {
         $this->loadRoutesFrom(self::ROUTES_DIR . '/v1/api.php');
         $this->loadRoutesFrom(self::ROUTES_DIR . '/v1/web.php');
+    }
+
+    private function registerMigration(): void
+    {
+        $this->loadMigrationsFrom(self::DATABASE_DIR . '/migrations');
+        $this->publishes([
+            self::DATABASE_DIR . '/migrations' => database_path('migrations'),
+        ],self::DATABASE_GROUPS);
     }
 
     private function registerEvents(): void
@@ -54,6 +72,13 @@ class CallmeafAuthServiceProvider extends ServiceProvider
             });
         }
 
+        foreach (config('callmeaf-password.events') as $event => $listeners) {
+            Event::listen($event,function($event) use ($listeners) {
+                foreach($listeners as $listener) {
+                    app($listener)->handle($event);
+                }
+            });
+        }
     }
 
     private function registerViews(): void

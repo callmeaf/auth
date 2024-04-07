@@ -23,4 +23,8 @@ Route::prefix(config('callmeaf-base.api.prefix_url'))->as(config('callmeaf-base.
             Route::delete('/logout','logout');
         });
     });
+    Route::middleware(config('callmeaf-password.middlewares.global'))->controller(config('callmeaf-password.controllers.forgot_password'))->group(function () {
+        Route::post('/forgot_password','forgotPassword')->middleware(config('callmeaf-password.middlewares.forgot-password'));
+        Route::patch('/update_password','updatePassword')->middleware(config('callmeaf-password.middlewares.update-password'));
+    });
 });

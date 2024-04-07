@@ -1,0 +1,34 @@
+<?php
+
+namespace Callmeaf\Auth\Http\Requests\V1\Api;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdatePasswordRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return collect([
+            'email_or_mobile' => ['string',Rule::exists(config('callmeaf-password.model'),'email_or_mobile')],
+            'code' => ['digits:' . config('callmeaf-password.length'),Rule::exists(config('callmeaf-password.model'),'code')],
+            'password' => ['string','min:7','confirmed'],
+        ])->map(
+            fn($values,$key) => validationManager($key,$values,config("callmeaf-password.validations.update_password")))
+            ->toArray();
+    }
+
+}

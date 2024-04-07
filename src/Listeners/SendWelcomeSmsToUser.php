@@ -25,7 +25,7 @@ class SendWelcomeSmsToUser
         $user = $event->user;
         $mobile = $user->mobile;
         if($mobile) {
-            $authService = app(AuthService::class);
+            $authService = app(config('callmeaf-auth.service'));
             $authService->smsChannel()->sendViaPattern(
                 pattern: config('callmeaf-kavenegar.patterns.welcome.template'),
                 mobile: $mobile,
