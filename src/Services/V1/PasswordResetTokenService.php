@@ -82,15 +82,17 @@ class PasswordResetTokenService extends BaseService implements PasswordResetToke
             'password' => $password
         ]);
 
+        $this->forceDelete();
+
         return $this;
     }
 
-    private function codeLength(): int
+    protected function codeLength(): int
     {
         return config('callmeaf-password.length');
     }
 
-    private function lifetime(): int
+    protected function lifetime(): int
     {
         return config('callmeaf-password.lifetime');
     }

@@ -152,7 +152,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return config('callmeaf-auth.sms_channel');
     }
 
-    private function attempt(array $credentials,bool $rememberMe): void
+    protected function attempt(array $credentials,bool $rememberMe): void
     {
         if(!Auth::attempt($credentials,$rememberMe)) {
             throw new UserAccountNotFoundException();

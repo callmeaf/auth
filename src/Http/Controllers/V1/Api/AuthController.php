@@ -12,7 +12,6 @@ use Callmeaf\Auth\Services\V1\AuthService;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 use Callmeaf\Media\Enums\MediaCollection;
 use Callmeaf\Media\Enums\MediaDisk;
-use Callmeaf\User\Http\Resources\V1\Api\UserResource;
 
 class AuthController extends ApiController
 {
