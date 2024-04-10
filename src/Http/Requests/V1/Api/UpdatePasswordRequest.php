@@ -22,13 +22,11 @@ class UpdatePasswordRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'email_or_mobile' => ['string',Rule::exists(config('callmeaf-password.model'),'email_or_mobile')],
             'code' => ['digits:' . config('callmeaf-password.length'),Rule::exists(config('callmeaf-password.model'),'code')],
             'password' => ['string','min:7','confirmed'],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-password.validations.update_password")))
-            ->toArray();
+        ],filters: config("callmeaf-password.validations.update_password"));
     }
 
 }

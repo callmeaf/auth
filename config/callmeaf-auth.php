@@ -38,6 +38,9 @@ return [
             'email' => true,
             'password' => false,
         ],
+        'verify_email' => [
+
+        ],
         'login_via_email' => [
             'email' => true,
             'password' => true,

@@ -21,11 +21,9 @@ class AuthLogoutRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
-            //
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.logout")))
-            ->toArray();
+        return validationManager(rules: [
+
+        ],filters: config("callmeaf-auth.validations.logout"));
     }
 
 }

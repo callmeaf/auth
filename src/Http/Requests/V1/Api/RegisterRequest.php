@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'type' => [new Enum(UserType::class)],
             'first_name' => ['string','min:3','max:255'],
             'last_name' => ['string','min:3','max:255'],
@@ -32,9 +32,7 @@ class RegisterRequest extends FormRequest
             'national_code' => ['string','digits:10',Rule::unique(config('callmeaf-auth.model'),'national_code')],
             'email' => ['email',Rule::unique(config('callmeaf-auth.model'),'email')],
             'password' => ['string','min:7'],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register")),
-        )->toArray();
+        ],filters: config("callmeaf-auth.validations.register"));
     }
 
 }

@@ -22,13 +22,11 @@ class LoginViaMobileRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'mobile' => ['string','max:255', Rule::exists(config('callmeaf-auth.model'), 'mobile')],
             'password' => ['string'],
             'remember_me' => [],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_mobile")))
-            ->toArray();
+        ],filters: config("callmeaf-auth.validations.login_via_mobile"));
     }
 
 }

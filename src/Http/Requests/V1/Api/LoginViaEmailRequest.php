@@ -22,13 +22,11 @@ class LoginViaEmailRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'email' => ['string', 'email','max:255', Rule::exists(config('callmeaf-auth.model'), 'email')],
             'password' => ['string'],
             'remember_me' => [],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_email")))
-            ->toArray();
+        ],filters: config("callmeaf-auth.validations.login_via_email"));
     }
 
 }

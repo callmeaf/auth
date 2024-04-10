@@ -34,8 +34,8 @@ class AuthVerifyEmailRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return validationManager(rules: [
+
+        ],filters: config("callmeaf-auth.validations.verify_email"));
     }
 }

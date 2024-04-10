@@ -23,14 +23,12 @@ class AuthUserUpdateRequest extends FormRequest
     public function rules(): array
     {
         $userId = $this->user()->id;
-        return collect([
+        return validationManager(rules: [
             'first_name' => ['string','max:50'],
             'last_name' => ['string','max:50'],
             'national_code' => ['digits:10',Rule::unique(config('callmeaf-auth.model','national_code'))->ignore($userId)],
             'email' => ['email',Rule::unique(config('callmeaf-auth.model','email'))->ignore($userId)],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.user_update")))
-            ->toArray();
+        ],filters: config("callmeaf-auth.validations.user_update"));
     }
 
 }

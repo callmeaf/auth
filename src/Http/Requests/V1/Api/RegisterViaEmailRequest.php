@@ -22,12 +22,10 @@ class RegisterViaEmailRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'email' => ['string', 'email','max:255', Rule::unique(config('callmeaf-auth.model'), 'email')],
             'password' => ['string','min:7','confirmed'],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register_via_email")))
-            ->toArray();
+        ],filters: config("callmeaf-auth.validations.register_via_email"));
     }
 
 }

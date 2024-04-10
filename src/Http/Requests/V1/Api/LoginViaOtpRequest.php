@@ -23,13 +23,11 @@ class LoginViaOtpRequest extends FormRequest
     public function rules(): array
     {
         $otpModel = config('callmeaf-otp.model');
-        return collect([
+        return validationManager(rules: [
             'mobile' => ['string','max:255', Rule::exists($otpModel, 'mobile'),Rule::exists(config('callmeaf-auth.model'), 'mobile')],
             'code' => ['digits:' . config('callmeaf-otp.length'),Rule::exists($otpModel,'code')],
             'remember_me' => [],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.login_via_otp")))
-            ->toArray();
+        ],filters: config("callmeaf-auth.validations.login_via_otp"));
     }
 
 }

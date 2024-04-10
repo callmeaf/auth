@@ -23,11 +23,9 @@ class ForgotPasswordRequest extends FormRequest
     public function rules(): array
     {
         $emailOrMobile = $this->get('email_or_mobile');
-        return collect([
+        return validationManager(rules: [
             'email_or_mobile' => ['string',Rule::exists(config('callmeaf-auth.model'),str($emailOrMobile)->contains('@') ? 'email' : 'mobile')],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-password.validations.forgot_password")))
-            ->toArray();
+        ],filters: config("callmeaf-password.validations.forgot_password"));
     }
 
 }

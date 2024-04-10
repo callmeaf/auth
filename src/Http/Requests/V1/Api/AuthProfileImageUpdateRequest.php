@@ -21,11 +21,9 @@ class AuthProfileImageUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'image' => ['image','max:1024'],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.profile_image_update")))
-            ->toArray();
+        ],filters: config("callmeaf-auth.validations.profile_image_update"));
     }
 
 }

@@ -21,11 +21,9 @@ class AuthUserShowRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
-            //
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.user_show")))
-            ->toArray();
+        return validationManager(rules: [
+            'image' => ['image','max:1024'],
+        ],filters: config("callmeaf-auth.validations.user_show"));
     }
 
 }

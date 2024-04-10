@@ -22,12 +22,10 @@ class RegisterViaMobileRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'mobile' => ['string', 'digits:11','starts_with:09', Rule::unique(config('callmeaf-auth.model'), 'mobile')],
             'password' => ['string','min:7'],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.register_via_mobile")))
-        ->toArray();
+        ],filters: config("callmeaf-auth.validations.register_via_mobile"));
     }
 
 }

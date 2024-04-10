@@ -21,11 +21,9 @@ class AuthPasswordStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return collect([
+        return validationManager(rules: [
             'password' => ['string','min:7','confirmed'],
-        ])->map(
-            fn($values,$key) => validationManager($key,$values,config("callmeaf-auth.validations.password_store")))
-            ->toArray();
+        ],filters: config("callmeaf-auth.validations.password_store"));
     }
 
 }
