@@ -23,7 +23,7 @@ class AuthController extends WebController
             } else {
                 $authService->freshQuery()->where('id',$userId)->first();
             }
-            $user = $authService->verifyEmail()->getModel(asResource: true,attributes: config('callmeaf-auth.resources.verify_email'));
+            $user = $authService->verifyEmail()->getModel(asResource: true,attributes: config('callmeaf-auth.resources.verify_email.attributes'),relations: config('callmeaf-auth.resources.verify_email.relations'));
             return apiResponse([
                 'user' => $user,
             ],__('callmeaf-base::v1.successful_verified_email'));

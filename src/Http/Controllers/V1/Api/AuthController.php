@@ -24,7 +24,7 @@ class AuthController extends ApiController
     public function getUser(AuthUserShowRequest $request)
     {
         try {
-            $user = $this->authService->setModel($request->user())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.getUser'));
+            $user = $this->authService->setModel($request->user())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.getUser.attributes'),relations: config('callmeaf-auth.resources.getUser.relations'));
              return apiResponse([
                  'user' => $user
              ],__('callmeaf-base::v1.successful_loaded'));
@@ -37,7 +37,7 @@ class AuthController extends ApiController
     public function updateUser(AuthUserUpdateRequest $request)
     {
         try {
-            $user = $this->authService->setModel($request->user())->update(data: $request->validated())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.updateUser'));
+            $user = $this->authService->setModel($request->user())->update(data: $request->validated())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.updateUser.attributes'),relations: config('callmeaf-auth.resources.updateUser.relations'));
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_updated_non_title'));
@@ -76,7 +76,7 @@ class AuthController extends ApiController
                 file: $request->file('image'),
                 collection: MediaCollection::IMAGE,
                 disk: MediaDisk::USERS,
-            )->getModel(asResource: true,attributes: config('callmeaf-auth.resources.updateProfileImage'));
+            )->getModel(asResource: true,attributes: config('callmeaf-auth.resources.updateProfileImage.attributes'),relations: config('callmeaf-auth.resources.updateProfileImage.relations'));
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_updated_non_title'));

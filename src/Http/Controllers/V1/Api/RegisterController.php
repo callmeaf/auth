@@ -18,7 +18,7 @@ class RegisterController extends ApiController
     public function register(RegisterRequest $request)
     {
         try {
-            $user = $this->authService->register(data: $request->validated())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.register'));
+            $user = $this->authService->register(data: $request->validated())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.register.attributes'),relations: config('callmeaf-auth.resources.register.relations'));
             return apiResponse([
                 'user' => $user
             ],__('callmeaf-base::v1.successful_created',[
@@ -33,7 +33,7 @@ class RegisterController extends ApiController
     public function registerViaMobile(RegisterViaMobileRequest $request)
     {
         try {
-            $user = $this->authService->registerViaMobile(mobile: $request->get('mobile'))->getModel(asResource: true,attributes: config('callmeaf-auth.resources.registerViaMobile'));
+            $user = $this->authService->registerViaMobile(mobile: $request->get('mobile'))->getModel(asResource: true,attributes: config('callmeaf-auth.resources.registerViaMobile.attributes'),relations: config('callmeaf-auth.resources.registerViaMobile.relations'));
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_created',[
@@ -49,7 +49,7 @@ class RegisterController extends ApiController
     public function registerViaEmail(RegisterViaEmailRequest $request)
     {
         try {
-            $user = $this->authService->registerViaEmail(email: $request->get('email'),password: $request->get('password'))->getModel(asResource: true,attributes: config('callmeaf-auth.resources.registerViaEmail'));
+            $user = $this->authService->registerViaEmail(email: $request->get('email'),password: $request->get('password'))->getModel(asResource: true,attributes: config('callmeaf-auth.resources.registerViaEmail.attributes'),relations: config('callmeaf-auth.resources.registerViaMobile.relations'));
             return apiResponse([
                 'user' => $user,
             ],__('callmeaf-base::v1.successful_created',[
