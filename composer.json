@@ -18,7 +18,8 @@
     "require": {
         "callmeaf/base": "dev-master",
         "callmeaf/user": "dev-master",
-        "callmeaf/otp": "dev-master"
+        "callmeaf/otp": "dev-master",
+        "spatie/laravel-medialibrary": "*"
     },
     "extra": {
         "laravel": {
