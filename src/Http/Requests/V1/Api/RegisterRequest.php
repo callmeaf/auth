@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
             'first_name' => ['string','min:3','max:255'],
             'last_name' => ['string','min:3','max:255'],
             'mobile' => ['digits:11',Rule::unique(config('callmeaf-auth.model'),'mobile')],
-            'national_code' => ['string','digits:10',Rule::unique(config('callmeaf-auth.model'),'national_code')],
+            'national_code' => ['digits:10',Rule::unique(config('callmeaf-auth.model'),'national_code')],
             'email' => ['email',Rule::unique(config('callmeaf-auth.model'),'email')],
             'password' => ['string','min:7'],
         ],filters: config("callmeaf-auth.validations.register"));

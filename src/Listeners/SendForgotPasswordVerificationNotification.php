@@ -3,7 +3,7 @@
 namespace Callmeaf\Auth\Listeners;
 
 use Callmeaf\Auth\Events\ForgotPasswordCodeSent;
-use Callmeaf\Auth\Mail\ForgotPasswordCodeMail;
+use Callmeaf\Auth\Mails\ForgotPasswordCodeMail;
 use Callmeaf\Auth\Services\V1\PasswordResetTokenService;
 use Illuminate\Support\Facades\Mail;
 

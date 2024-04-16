@@ -1,22 +1,21 @@
 <?php
 
-namespace Callmeaf\Auth\Mail;
+namespace Callmeaf\Auth\Mails;
 
-use Callmeaf\Auth\Models\PasswordResetToken;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ForgotPasswordCodeMail extends Mailable
+class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(public PasswordResetToken $passwordResetToken)
+    public function __construct()
     {
         //
     }
@@ -27,7 +26,7 @@ class ForgotPasswordCodeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('callmeaf-auth::v1.mails.forgot_password.subject'),
+            subject: __('callmeaf-auth::v1.mails.welcome.subject'),
         );
     }
 
@@ -37,7 +36,7 @@ class ForgotPasswordCodeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'callmeaf-auth::emails.password-reset-tokens.forgot-password-code',
+            markdown: 'callmeaf-auth::emails.users.welcome',
         );
     }
 

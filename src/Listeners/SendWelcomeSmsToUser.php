@@ -3,9 +3,6 @@
 namespace Callmeaf\Auth\Listeners;
 
 use Callmeaf\Auth\Events\Registered;
-use Callmeaf\Auth\Services\V1\AuthService;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeSmsToUser
 {
