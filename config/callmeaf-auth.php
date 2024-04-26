@@ -92,7 +92,7 @@ return [
                'national_code',
            ],
         ],
-        'registerViaMobile' => [
+        'register_via_mobile' => [
             'relations' => [
 
             ],
@@ -101,7 +101,7 @@ return [
                 'mobile',
             ],
         ],
-        'registerViaEmail' => [
+        'register_via_email' => [
             'relations' => [],
            'attributes' => [
                'id',
@@ -109,7 +109,7 @@ return [
                'email_verified_at',
            ],
         ],
-        'getUser' => [
+        'user_show' => [
             'relations' => [],
             'attributes' => [
                 'id',
@@ -126,7 +126,7 @@ return [
                 'national_code',
             ],
         ],
-        'updateUser' => [
+        'user_update' => [
             'relations' => [],
             'attributes' => [
                 'id',
@@ -160,7 +160,7 @@ return [
                 'national_code',
             ],
         ],
-        'updateProfileImage' => [
+        'profile_image_update' => [
             'relations' => [],
               'attributes' => [
                   'id',

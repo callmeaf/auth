@@ -21,10 +21,10 @@ class AuthController extends ApiController
         $this->authService = app(config('callmeaf-auth.service'));
     }
 
-    public function getUser(AuthUserShowRequest $request)
+    public function userShow(AuthUserShowRequest $request)
     {
         try {
-            $user = $this->authService->setModel($request->user())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.getUser.attributes'),relations: config('callmeaf-auth.resources.getUser.relations'));
+            $user = $this->authService->setModel($request->user())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.user_show.attributes'),relations: config('callmeaf-auth.resources.user_show.relations'));
              return apiResponse([
                  'user' => $user
              ],__('callmeaf-base::v1.successful_loaded'));
@@ -34,10 +34,10 @@ class AuthController extends ApiController
         }
     }
 
-    public function updateUser(AuthUserUpdateRequest $request)
+    public function userUpdate(AuthUserUpdateRequest $request)
     {
         try {
-            $user = $this->authService->setModel($request->user())->update(data: $request->validated())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.updateUser.attributes'),relations: config('callmeaf-auth.resources.updateUser.relations'));
+            $user = $this->authService->setModel($request->user())->update(data: $request->validated())->getModel(asResource: true,attributes: config('callmeaf-auth.resources.user_update.attributes'),relations: config('callmeaf-auth.resources.user_update.relations'));
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_updated_non_title'));
@@ -47,7 +47,7 @@ class AuthController extends ApiController
         }
     }
 
-    public function storePassword(AuthPasswordStoreRequest $request)
+    public function passwordStore(AuthPasswordStoreRequest $request)
     {
         try {
             $this->authService->setModel($request->user())->storePassword(password: $request->get('password'));
@@ -58,7 +58,7 @@ class AuthController extends ApiController
         }
     }
 
-    public function updatePassword(AuthPasswordUpdateRequest $request)
+    public function passwordUpdate(AuthPasswordUpdateRequest $request)
     {
         try {
             $this->authService->setModel($request->user())->updatePassword(currentPassword: $request->get('current_password'),newPassword: $request->get('new_password'));
@@ -69,14 +69,14 @@ class AuthController extends ApiController
         }
     }
 
-    public function profileImage(AuthProfileImageUpdateRequest $request)
+    public function profileImageUpdate(AuthProfileImageUpdateRequest $request)
     {
         try {
             $user = $this->authService->setModel($request->user())->createMedia(
                 file: $request->file('image'),
                 collection: MediaCollection::IMAGE,
                 disk: MediaDisk::USERS,
-            )->getModel(asResource: true,attributes: config('callmeaf-auth.resources.updateProfileImage.attributes'),relations: config('callmeaf-auth.resources.updateProfileImage.relations'));
+            )->getModel(asResource: true,attributes: config('callmeaf-auth.resources.profile_image_update.attributes'),relations: config('callmeaf-auth.resources.profile_image_update.relations'));
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_updated_non_title'));
