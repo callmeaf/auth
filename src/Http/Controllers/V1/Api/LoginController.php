@@ -7,7 +7,6 @@ use Callmeaf\Auth\Http\Requests\V1\Api\LoginViaMobileRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\LoginViaOtpRequest;
 use Callmeaf\Auth\Services\V1\AuthService;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
-use Illuminate\Support\Facades\Log;
 
 class LoginController extends ApiController
 {
@@ -19,7 +18,6 @@ class LoginController extends ApiController
     public function loginViaEmail(LoginViaEmailRequest $request)
     {
         try {
-            Log::alert($request->get('email'));
             $token = $this->authService->loginViaEmail(email: $request->get('email'),password: $request->get('password'),rememberMe: $request->has('remember_me'))->createToken();
              return apiResponse([
                  'token' => $token,

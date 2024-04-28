@@ -12,7 +12,7 @@ class LoginViaMobileRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return app(config('callmeaf-auth.form_request_authorizers.login'))->loginViaMobile();
     }
 
     /**

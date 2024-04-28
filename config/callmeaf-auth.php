@@ -189,6 +189,13 @@ return [
         'auth' => \Callmeaf\Auth\Http\Controllers\V1\Api\AuthController::class,
         'auth_web' => \Callmeaf\Auth\Http\Controllers\V1\Web\AuthController::class,
     ],
+    'form_request_authorizers' => [
+        'auth' => \Callmeaf\Auth\Utilities\V1\AuthFormRequestAuthorizer::class,
+        'auth_web' => \Callmeaf\Auth\Utilities\V1\AuthWebFormRequestAuthorizer::class,
+        'forgot_password' => \Callmeaf\Auth\Utilities\V1\ForgotPasswordFormRequestAuthorizer::class,
+        'login' => \Callmeaf\Auth\Utilities\V1\LoginFormRequestAuthorizer::class,
+        'register' => \Callmeaf\Auth\Utilities\V1\RegisterFormRequestAuthorizer::class,
+    ],
     'middlewares' => [
         'global' => [],
         'register' => [

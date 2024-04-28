@@ -2,6 +2,7 @@
 
 namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
+use Callmeaf\Auth\Utilities\V1\RegisterFormRequestAuthorizer;
 use Callmeaf\User\Enums\UserType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -14,7 +15,11 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        /**
+         * @var RegisterFormRequestAuthorizer $registerAuthorizer
+         */
+        $registerAuthorizer = app(config('callmeaf-auth.form_request_authorizers.register'));
+        return $registerAuthorizer->register();
     }
 
     /**

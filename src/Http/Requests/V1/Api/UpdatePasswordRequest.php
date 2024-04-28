@@ -12,7 +12,7 @@ class UpdatePasswordRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return app(config('callmeaf-auth.form_request_authorizers.forgot_password'))->updatePassword();
     }
 
     /**

@@ -149,7 +149,7 @@ class AuthService extends BaseService implements AuthServiceInterface
 
     public function smsChannel(): SmsService
     {
-        return config('callmeaf-auth.sms_channel');
+        return app(config('callmeaf-auth.sms_channel'));
     }
 
     protected function attempt(array $credentials,bool $rememberMe): void

@@ -13,18 +13,7 @@ class AuthVerifyEmailRequest extends FormRequest
      */
     public function authorize()
     {
-        if(array_key_exists('auth',config('callmeaf-auth.middlewares.verify_email'))) {
-            $authUser = $this->user();
-            if (! hash_equals((string) $authUser->getKey(), (string) $this->route('id'))) {
-                return false;
-            }
-
-            if (! hash_equals(sha1($authUser->getEmailForVerification()), (string) $this->route('hash'))) {
-                return false;
-            }
-        }
-
-        return true;
+        return app(config('callmeaf-auth.form_request_authorizers.auth_web'))->verifyEmail($this);
     }
 
     /**
