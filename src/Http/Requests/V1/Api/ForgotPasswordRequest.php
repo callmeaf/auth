@@ -12,7 +12,7 @@ class ForgotPasswordRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return app(config('callmeaf-auth.form_request_authorizers.forgot_password'))->forgotPassword();
+        return app(config('callmeaf-password.form_request_authorizers.forgot_password'))->forgotPassword();
     }
 
     /**

@@ -23,7 +23,7 @@ class AuthLogoutRequest extends FormRequest
     {
         return validationManager(rules: [
 
-        ],filters: config("callmeaf-auth.validations.logout"));
+        ],filters:  app(config('callmeaf-auth.validations.auth'))->logout());
     }
 
 }

@@ -25,7 +25,7 @@ class RegisterViaEmailRequest extends FormRequest
         return validationManager(rules: [
             'email' => ['string', 'email','max:255', Rule::unique(config('callmeaf-auth.model'), 'email')],
             'password' => ['string','min:7','confirmed'],
-        ],filters: config("callmeaf-auth.validations.register_via_email"));
+        ],filters:  app(config("callmeaf-auth.validations.register"))->registerViaEmail());
     }
 
 }

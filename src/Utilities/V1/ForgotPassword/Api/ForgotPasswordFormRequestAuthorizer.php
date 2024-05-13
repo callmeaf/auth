@@ -1,6 +1,6 @@
 <?php
 
-namespace Callmeaf\Auth\Utilities\V1;
+namespace Callmeaf\Auth\Utilities\V1\ForgotPassword\Api;
 
 use Callmeaf\Base\Utilities\V1\FormRequestAuthorizer;
 

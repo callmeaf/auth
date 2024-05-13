@@ -13,6 +13,7 @@ class ForgotPasswordController extends ApiController
 
     public function __construct()
     {
+        app(config('callmeaf-password.middlewares.forgot_password'))($this);
         $this->passwordResetTokenService = app(config('callmeaf-password.service'));
     }
 

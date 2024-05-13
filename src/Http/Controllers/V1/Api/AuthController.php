@@ -18,6 +18,7 @@ class AuthController extends ApiController
     protected AuthService $authService;
     public function __construct()
     {
+        app(config('callmeaf-auth.middlewares.auth'))($this);
         $this->authService = app(config('callmeaf-auth.service'));
     }
 

@@ -23,7 +23,7 @@ class AuthProfileImageUpdateRequest extends FormRequest
     {
         return validationManager(rules: [
             'image' => ['image','max:1024'],
-        ],filters: config("callmeaf-auth.validations.profile_image_update"));
+        ],filters:  app(config('callmeaf-auth.validations.auth'))->profileImageUpdate());
     }
 
 }

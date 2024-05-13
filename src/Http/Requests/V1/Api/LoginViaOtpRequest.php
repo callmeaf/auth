@@ -27,7 +27,7 @@ class LoginViaOtpRequest extends FormRequest
             'mobile' => ['string','max:255', Rule::exists($otpModel, 'mobile'),Rule::exists(config('callmeaf-auth.model'), 'mobile')],
             'code' => ['digits:' . config('callmeaf-otp.length'),Rule::exists($otpModel,'code')],
             'remember_me' => [],
-        ],filters: config("callmeaf-auth.validations.login_via_otp"));
+        ],filters:  app(config('callmeaf-auth.validations.login'))->loginViaOtp());
     }
 
 }

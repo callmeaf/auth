@@ -23,7 +23,7 @@ class AuthPasswordStoreRequest extends FormRequest
     {
         return validationManager(rules: [
             'password' => ['string','min:7','confirmed'],
-        ],filters: config("callmeaf-auth.validations.password_store"));
+        ],filters:  app(config('callmeaf-auth.validations.auth'))->passwordStore());
     }
 
 }

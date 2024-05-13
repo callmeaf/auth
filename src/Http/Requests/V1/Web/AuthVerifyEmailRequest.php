@@ -25,6 +25,6 @@ class AuthVerifyEmailRequest extends FormRequest
     {
         return validationManager(rules: [
 
-        ],filters: config("callmeaf-auth.validations.verify_email"));
+        ],filters: app(config('callmeaf-auth.validations.auth_web'))->verifyEmail());
     }
 }

@@ -23,7 +23,7 @@ class AuthUserShowRequest extends FormRequest
     {
         return validationManager(rules: [
             'image' => ['image','max:1024'],
-        ],filters: config("callmeaf-auth.validations.user_show"));
+        ],filters: app(config('callmeaf-auth.validations.auth'))->userShow());
     }
 
 }

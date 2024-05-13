@@ -21,63 +21,10 @@ return [
         ],
     ],
     'validations' => [
-        'register' => [
-            'type' => true,
-            'first_name' => true,
-            'last_name' => true,
-            'mobile' => true,
-            'national_code' => true,
-            'email' => true,
-            'password' => true,
-        ],
-        'register_via_mobile' => [
-            'mobile' => true,
-            'password' => false,
-        ],
-        'register_via_email' => [
-            'email' => true,
-            'password' => false,
-        ],
-        'verify_email' => [
-
-        ],
-        'login_via_email' => [
-            'email' => true,
-            'password' => true,
-            'remember_me' => false,
-        ],
-        'login_via_mobile' => [
-            'mobile' => true,
-            'password' => true,
-            'remember_me' => false,
-        ],
-        'login_via_otp' => [
-            'mobile' => true,
-            'code' => true,
-            'remember_me' => false,
-        ],
-        'user_show' => [
-
-        ],
-        'user_update' => [
-            'first_name' => true,
-            'last_name' => true,
-            'national_code' => true,
-            'email' => false,
-        ],
-        'password_store' => [
-            'password' => true,
-        ],
-        'password_update' => [
-            'current_password' => true,
-            'new_password' => true,
-        ],
-        'profile_image_update' => [
-            'image' => true,
-        ],
-        'logout' => [
-            //
-        ],
+        'register' => \Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestValidator::class,
+        'login' => \Callmeaf\Auth\Utilities\V1\Login\Api\LoginFormRequestValidator::class,
+        'auth' => \Callmeaf\Auth\Utilities\V1\Auth\Api\AuthFormRequestValidator::class,
+        'auth_web' => \Callmeaf\Auth\Utilities\V1\Auth\Web\AuthWebFormRequestValidator::class
     ],
     'resources' => [
         'register' => [
@@ -190,25 +137,15 @@ return [
         'auth_web' => \Callmeaf\Auth\Http\Controllers\V1\Web\AuthController::class,
     ],
     'form_request_authorizers' => [
-        'auth' => \Callmeaf\Auth\Utilities\V1\AuthFormRequestAuthorizer::class,
-        'auth_web' => \Callmeaf\Auth\Utilities\V1\AuthWebFormRequestAuthorizer::class,
-        'forgot_password' => \Callmeaf\Auth\Utilities\V1\ForgotPasswordFormRequestAuthorizer::class,
-        'login' => \Callmeaf\Auth\Utilities\V1\LoginFormRequestAuthorizer::class,
-        'register' => \Callmeaf\Auth\Utilities\V1\RegisterFormRequestAuthorizer::class,
+        'auth' => \Callmeaf\Auth\Utilities\V1\Auth\Api\AuthFormRequestAuthorizer::class,
+        'auth_web' => \Callmeaf\Auth\Utilities\V1\Auth\Web\AuthWebFormRequestAuthorizer::class,
+        'login' => \Callmeaf\Auth\Utilities\V1\Login\Api\LoginFormRequestAuthorizer::class,
+        'register' => \Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestAuthorizer::class,
     ],
     'middlewares' => [
-        'global' => [],
-        'register' => [
-            'guest:sanctum',
-        ],
-        'login' => [
-            'guest:sanctum',
-        ],
-        'auth' => [
-            'auth:sanctum'
-        ],
-        'verify_email' => [
-            'signed',
-        ],
+        'register' => \Callmeaf\Auth\Utilities\V1\Register\Api\RegisterControllerMiddleware::class,
+        'login' => \Callmeaf\Auth\Utilities\V1\Login\Api\LoginControllerMiddleware::class,
+        'auth' => \Callmeaf\Auth\Utilities\V1\Auth\Api\AuthControllerMiddleware::class,
+        'auth_web' => \Callmeaf\Auth\Utilities\V1\Auth\Web\AuthWebControllerMiddleware::class,
     ],
 ];

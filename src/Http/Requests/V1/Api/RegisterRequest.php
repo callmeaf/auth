@@ -2,7 +2,8 @@
 
 namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
-use Callmeaf\Auth\Utilities\V1\RegisterFormRequestAuthorizer;
+use Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestAuthorizer;
+use Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestValidator;
 use Callmeaf\User\Enums\UserType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -29,6 +30,10 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
+        /**
+         * @var RegisterFormRequestValidator $validator
+         */
+        $validator = app(config("callmeaf-auth.validations.register"));
         return validationManager(rules: [
             'type' => [new Enum(UserType::class)],
             'first_name' => ['string','min:3','max:255'],
@@ -37,7 +42,7 @@ class RegisterRequest extends FormRequest
             'national_code' => ['digits:10',Rule::unique(config('callmeaf-auth.model'),'national_code')],
             'email' => ['email',Rule::unique(config('callmeaf-auth.model'),'email')],
             'password' => ['string','min:7'],
-        ],filters: config("callmeaf-auth.validations.register"));
+        ],filters: $validator->register());
     }
 
 }

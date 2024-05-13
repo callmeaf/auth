@@ -28,7 +28,7 @@ class AuthUserUpdateRequest extends FormRequest
             'last_name' => ['string','max:50'],
             'national_code' => ['digits:10',Rule::unique(config('callmeaf-auth.model','national_code'))->ignore($userId)],
             'email' => ['email',Rule::unique(config('callmeaf-auth.model','email'))->ignore($userId)],
-        ],filters: config("callmeaf-auth.validations.user_update"));
+        ],filters:  app(config('callmeaf-auth.validations.auth'))->userUpdate());
     }
 
 }

@@ -24,7 +24,7 @@ class AuthPasswordUpdateRequest extends FormRequest
         return validationManager(rules: [
             'current_password' => ['string'],
             'new_password' => ['string','min:7','confirmed'],
-        ],filters: config("callmeaf-auth.validations.password_update"));
+        ],filters:  app(config('callmeaf-auth.validations.auth'))->passwordUpdate());
     }
 
 }

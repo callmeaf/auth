@@ -31,14 +31,10 @@ return [
     'controllers' => [
         'forgot_password' => \Callmeaf\Auth\Http\Controllers\V1\Api\ForgotPasswordController::class,
     ],
+    'form_request_authorizers' => [
+        'forgot_password' => \Callmeaf\Auth\Utilities\V1\ForgotPassword\Api\ForgotPasswordFormRequestAuthorizer::class,
+    ],
     'middlewares' => [
-        'global' => [],
-        'forgot-password' => [
-            'guest:sanctum',
-            'throttle:1,1'
-        ],
-        'update-password' => [
-            'guest:sanctum'
-        ],
+        'forgot_password' => \Callmeaf\Auth\Utilities\V1\ForgotPassword\Api\ForgotPasswordMiddleware::class,
     ],
 ];

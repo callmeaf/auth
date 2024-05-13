@@ -25,7 +25,7 @@ class RegisterViaMobileRequest extends FormRequest
         return validationManager(rules: [
             'mobile' => ['string', 'digits:11','starts_with:09', Rule::unique(config('callmeaf-auth.model'), 'mobile')],
             'password' => ['string','min:7'],
-        ],filters: config("callmeaf-auth.validations.register_via_mobile"));
+        ],filters: app(config("callmeaf-auth.validations.register"))->registerViaMobile());
     }
 
 }

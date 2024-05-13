@@ -13,6 +13,7 @@ class RegisterController extends ApiController
     protected AuthService $authService;
     public function __construct()
     {
+        app(config('callmeaf-auth.middlewares.register'))($this);
         $this->authService = app(config('callmeaf-auth.service'));
     }
     public function register(RegisterRequest $request)

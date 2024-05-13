@@ -13,6 +13,7 @@ class LoginController extends ApiController
     protected AuthService $authService;
     public function __construct()
     {
+        app(config('callmeaf-auth.middlewares.login'))($this);
         $this->authService = app(config('callmeaf-auth.service'));
     }
     public function loginViaEmail(LoginViaEmailRequest $request)

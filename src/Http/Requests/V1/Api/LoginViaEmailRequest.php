@@ -26,7 +26,7 @@ class LoginViaEmailRequest extends FormRequest
             'email' => ['string', 'email','max:255', Rule::exists(config('callmeaf-auth.model'), 'email')],
             'password' => ['string'],
             'remember_me' => [],
-        ],filters: config("callmeaf-auth.validations.login_via_email"));
+        ],filters: app(config('callmeaf-auth.validations.login'))->loginViaEmail());
     }
 
 }
