@@ -16,8 +16,41 @@ return [
             \Callmeaf\Auth\Listeners\SendWelcomeMailToUser::class,
             \Callmeaf\Auth\Listeners\SendEmailVerificationNotification::class,
         ],
+        \Callmeaf\Auth\Events\RegisteredViaMobile::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\RegisteredViaEmail::class => [
+            // listeners
+        ],
         \Callmeaf\Auth\Events\VerifiedEmail::class => [
-            //
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\LoggedInViaEmail::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\LoggedInViaMobile::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\LoggedInViaOtp::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\LoggedOut::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\PasswordStored::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\PasswordUpdated::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\ProfileImageUpdated::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\UserShowed::class => [
+            // listeners
+        ],
+        \Callmeaf\Auth\Events\UserUpdated::class => [
+            // listeners
         ],
     ],
     'validations' => [

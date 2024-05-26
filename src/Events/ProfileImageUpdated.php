@@ -2,11 +2,11 @@
 
 namespace Callmeaf\Auth\Events;
 
-use Callmeaf\User\Models\User;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Registered
+class ProfileImageUpdated
 {
     use Dispatchable, SerializesModels;
 

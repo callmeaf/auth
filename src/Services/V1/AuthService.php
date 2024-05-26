@@ -31,7 +31,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         $this->defaultData = config('callmeaf-auth.default_values');
     }
 
-    public function register(array $data): AuthService
+    public function register(array $data,?array $events = []): AuthService
     {
         $this->create(data: [
             'first_name' => @$data['first_name'],
@@ -41,49 +41,51 @@ class AuthService extends BaseService implements AuthServiceInterface
             'email' => @$data['email'],
             'password' => @$data['password'],
         ]);
-        Registered::dispatch($this->model);
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function registerViaMobile(string $mobile,?string $password = null): AuthService
+    public function registerViaMobile(string $mobile,?string $password = null,?array $events = []): AuthService
     {
         $this->register(data: [
             'mobile' => $mobile,
             'password' => $password,
         ]);
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function registerViaEmail(string $email,?string $password = null): AuthService
+    public function registerViaEmail(string $email,?string $password = null,?array $events = []): AuthService
     {
         $this->register(data: [
             'email' => $email,
             'password' => $password,
         ]);
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function loginViaEmail(string $email, string $password,bool $rememberMe): AuthService
+    public function loginViaEmail(string $email, string $password,bool $rememberMe,?array $events = []): AuthService
     {
         $this->attempt(credentials: [
             'email' => $email,
             'password' => $password
         ],rememberMe: $rememberMe);
-
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function loginViaMobile(string $mobile, string $password, bool $rememberMe): AuthService
+    public function loginViaMobile(string $mobile, string $password, bool $rememberMe,?array $events = []): AuthService
     {
         $this->attempt(credentials: [
             'mobile' => $mobile,
             'password' => $password,
         ],rememberMe: $rememberMe);
-
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function loginViaOtp(string $mobile, string $code, bool $rememberMe): AuthService
+    public function loginViaOtp(string $mobile, string $code, bool $rememberMe,?array $events = []): AuthService
     {
         /* @var $otpService \Callmeaf\Otp\Services\V1\OtpService */
         $otpService = app(config('callmeaf-otp.service'));
@@ -91,6 +93,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         if($result) {
             $this->freshQuery()->where(column: 'mobile',valueOrOperation: $mobile)->first();
         }
+        $this->eventsCaller($events);
        return $this;
     }
 
@@ -100,7 +103,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $model->createToken($model->id)->plainTextToken;
     }
 
-    public function storePassword(string $password): AuthService
+    public function storePassword(string $password,?array $events = []): AuthService
     {
         if(!is_null($this->model->password)) {
             throw new UserAlreadyHasPasswordException();
@@ -108,10 +111,11 @@ class AuthService extends BaseService implements AuthServiceInterface
         $this->update([
             'password' => $password,
         ]);
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function updatePassword(string $currentPassword, string $newPassword): AuthService
+    public function updatePassword(string $currentPassword, string $newPassword,?array $events = []): AuthService
     {
         if(!Hash::check(value: $currentPassword,hashedValue: $this->model->password)) {
             throw new CurrentPasswordIncorrectException();
@@ -119,22 +123,23 @@ class AuthService extends BaseService implements AuthServiceInterface
         $this->update(data: [
             'password' => $newPassword,
         ]);
-
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function verifyEmail(): AuthService
+    public function verifyEmail(?array $events = []): AuthService
     {
         $model = $this->model;
         if (! $model->hasVerifiedEmail()) {
             $model->markEmailAsVerified();
-            VerifiedEmail::dispatch($model);
+            $this->eventsCaller($events);
         }
         $this->freshModel();
+        $this->eventsCaller($events);
         return $this;
     }
 
-    public function logout(?Request $request = null): AuthService
+    public function logout(?Request $request = null,?array $events = []): AuthService
     {
         $request = $request ?? request();
         if(isApiRequest($request)) {
@@ -144,6 +149,7 @@ class AuthService extends BaseService implements AuthServiceInterface
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
+        $this->eventsCaller($events);
         return $this;
     }
 

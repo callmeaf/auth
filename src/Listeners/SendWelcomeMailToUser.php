@@ -4,6 +4,7 @@ namespace Callmeaf\Auth\Listeners;
 
 use Callmeaf\Auth\Events\Registered;
 use Callmeaf\Auth\Mails\WelcomeMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeMailToUser

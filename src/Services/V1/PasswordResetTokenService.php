@@ -32,7 +32,7 @@ class PasswordResetTokenService extends BaseService implements PasswordResetToke
         return app(config('callmeaf-otp.sms_channel'));
     }
 
-    public function sendForgotPasswordVerifyCode(string $emailOrMobile): PasswordResetTokenService
+    public function sendForgotPasswordVerifyCode(string $emailOrMobile,?array $events = []): PasswordResetTokenService
     {
         if($this->freshQuery()->where('email_or_mobile',$emailOrMobile)->where('expired_at','>',now())->exists()) {
             throw new WaitForNewPasswordResetCodeException();
@@ -44,9 +44,7 @@ class PasswordResetTokenService extends BaseService implements PasswordResetToke
             'code' => $this->newCode(),
             'expired_at' => @$this->defaultData['expired_at'],
         ]);
-
-        ForgotPasswordCodeSent::dispatch($this->model);
-
+        $this->eventsCaller($events);
         return $this;
     }
 
@@ -59,7 +57,7 @@ class PasswordResetTokenService extends BaseService implements PasswordResetToke
         return $code;
     }
 
-    public function updatePassword(string $code, string $password): PasswordResetTokenService
+    public function updatePassword(string $code, string $password,?array $events = []): PasswordResetTokenService
     {
         $model = $this->model;
         if($model->code !== $code) {
@@ -83,7 +81,7 @@ class PasswordResetTokenService extends BaseService implements PasswordResetToke
         ]);
 
         $this->forceDelete();
-
+        $this->eventsCaller($events);
         return $this;
     }
 

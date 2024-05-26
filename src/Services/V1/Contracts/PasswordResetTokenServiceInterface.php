@@ -9,7 +9,7 @@ use Callmeaf\Sms\Services\V1\SmsService;
 interface PasswordResetTokenServiceInterface extends BaseServiceInterface
 {
     public function smsChannel(): SmsService;
-    public function sendForgotPasswordVerifyCode(string $emailOrMobile): PasswordResetTokenService;
+    public function sendForgotPasswordVerifyCode(string $emailOrMobile,?array $events = []): PasswordResetTokenService;
     public function newCode(): string;
-    public function updatePassword(string $code,string $password): PasswordResetTokenService;
+    public function updatePassword(string $code,string $password,?array $events = []): PasswordResetTokenService;
 }
