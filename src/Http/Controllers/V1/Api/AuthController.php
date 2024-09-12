@@ -15,6 +15,7 @@ use Callmeaf\Auth\Http\Requests\V1\Api\AuthProfileImageUpdateRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\AuthUserShowRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\AuthUserUpdateRequest;
 use Callmeaf\Auth\Services\V1\AuthService;
+use Callmeaf\Auth\Utilities\V1\Register\Api\AuthResources;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 use Callmeaf\Media\Enums\MediaCollection;
 use Callmeaf\Media\Enums\MediaDisk;
@@ -22,19 +23,22 @@ use Callmeaf\Media\Enums\MediaDisk;
 class AuthController extends ApiController
 {
     protected AuthService $authService;
+    protected AuthResources $authResources;
     public function __construct()
     {
         app(config('callmeaf-auth.middlewares.auth'))($this);
         $this->authService = app(config('callmeaf-auth.service'));
+        $this->authResources = app(config('callmeaf-auth.resources.auth'));
     }
 
     public function userShow(AuthUserShowRequest $request)
     {
         try {
+            $resources = $this->authResources->userShow();
             $user = $this->authService->setModel($request->user())->getModel(
                 asResource: true,
-                attributes: config('callmeaf-auth.resources.user_show.attributes'),
-                relations: config('callmeaf-auth.resources.user_show.relations'),
+                attributes: $resources->attributes(),
+                relations: $resources->relations(),
                 events: [
                     UserShowed::class,
                 ],
@@ -51,10 +55,11 @@ class AuthController extends ApiController
     public function userUpdate(AuthUserUpdateRequest $request)
     {
         try {
+            $resources = $this->authResources->userUpdate();
             $user = $this->authService->setModel($request->user())->update(data: $request->validated(),events: [
                 UserUpdated::class,
             ])
-                ->getModel(asResource: true,attributes: config('callmeaf-auth.resources.user_update.attributes'),relations: config('callmeaf-auth.resources.user_update.relations'));
+                ->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_updated_non_title'));
@@ -97,6 +102,7 @@ class AuthController extends ApiController
     public function profileImageUpdate(AuthProfileImageUpdateRequest $request)
     {
         try {
+            $resources = $this->authResources->profileImageUpdate();
             $user = $this->authService->setModel($request->user())->createMedia(
                 file: $request->file('image'),
                 collection: MediaCollection::IMAGE,
@@ -104,7 +110,7 @@ class AuthController extends ApiController
                 events: [
                     ProfileImageUpdated::class,
                 ],
-            )->getModel(asResource: true,attributes: config('callmeaf-auth.resources.profile_image_update.attributes'),relations: config('callmeaf-auth.resources.profile_image_update.relations'));
+            )->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
              return apiResponse([
                  'user' => $user,
              ],__('callmeaf-base::v1.successful_updated_non_title'));

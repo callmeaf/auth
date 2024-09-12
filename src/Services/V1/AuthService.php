@@ -31,7 +31,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         $this->defaultData = config('callmeaf-auth.default_values');
     }
 
-    public function register(array $data,?array $events = []): AuthService
+    public function register(array $data,?array $events = []): self
     {
         $this->create(data: [
             'first_name' => @$data['first_name'],
@@ -45,7 +45,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function registerViaMobile(string $mobile,?string $password = null,?array $events = []): AuthService
+    public function registerViaMobile(string $mobile,?string $password = null,?array $events = []): self
     {
         $this->register(data: [
             'mobile' => $mobile,
@@ -55,7 +55,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function registerViaEmail(string $email,?string $password = null,?array $events = []): AuthService
+    public function registerViaEmail(string $email,?string $password = null,?array $events = []): self
     {
         $this->register(data: [
             'email' => $email,
@@ -65,7 +65,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function loginViaEmail(string $email, string $password,bool $rememberMe,?array $events = []): AuthService
+    public function loginViaEmail(string $email, string $password,bool $rememberMe,?array $events = []): self
     {
         $this->attempt(credentials: [
             'email' => $email,
@@ -75,7 +75,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function loginViaMobile(string $mobile, string $password, bool $rememberMe,?array $events = []): AuthService
+    public function loginViaMobile(string $mobile, string $password, bool $rememberMe,?array $events = []): self
     {
         $this->attempt(credentials: [
             'mobile' => $mobile,
@@ -85,7 +85,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function loginViaOtp(string $mobile, string $code, bool $rememberMe,?array $events = []): AuthService
+    public function loginViaOtp(string $mobile, string $code, bool $rememberMe,?array $events = []): self
     {
         /* @var $otpService \Callmeaf\Otp\Services\V1\OtpService */
         $otpService = app(config('callmeaf-otp.service'));
@@ -103,7 +103,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $model->createToken($model->id)->plainTextToken;
     }
 
-    public function storePassword(string $password,?array $events = []): AuthService
+    public function storePassword(string $password,?array $events = []): self
     {
         if(!is_null($this->model->password)) {
             throw new UserAlreadyHasPasswordException();
@@ -115,7 +115,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function updatePassword(string $currentPassword, string $newPassword,?array $events = []): AuthService
+    public function updatePassword(string $currentPassword, string $newPassword,?array $events = []): self
     {
         if(!Hash::check(value: $currentPassword,hashedValue: $this->model->password)) {
             throw new CurrentPasswordIncorrectException();
@@ -127,7 +127,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function verifyEmail(?array $events = []): AuthService
+    public function verifyEmail(?array $events = []): self
     {
         $model = $this->model;
         if (! $model->hasVerifiedEmail()) {
@@ -139,7 +139,7 @@ class AuthService extends BaseService implements AuthServiceInterface
         return $this;
     }
 
-    public function logout(?Request $request = null,?array $events = []): AuthService
+    public function logout(?Request $request = null,?array $events = []): self
     {
         $request = $request ?? request();
         if(isApiRequest($request)) {
