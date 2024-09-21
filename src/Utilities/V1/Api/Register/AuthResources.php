@@ -1,6 +1,6 @@
 <?php
 
-namespace Callmeaf\Auth\Utilities\V1\Register\Api;
+namespace Callmeaf\Auth\Utilities\V1\Api\Register;
 
 use Callmeaf\Base\Utilities\V1\Resources;
 
@@ -9,7 +9,9 @@ class AuthResources extends Resources
     public function userShow(): self
     {
         $this->data = [
-            'relations' => [],
+            'relations' => [
+                'carts',
+            ],
             'attributes' => [
                 'id',
                 'status',
@@ -23,6 +25,17 @@ class AuthResources extends Resources
                 'email',
                 'email_verified_at',
                 'national_code',
+                'carts',
+                '!carts' => [
+                    'id',
+                    'type',
+                    'type_text',
+                    'items',
+                    '!items' => [
+                        'variation_id',
+                        'qty',
+                    ],
+                ],
             ],
         ];
         return $this;

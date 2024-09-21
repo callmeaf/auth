@@ -32,9 +32,9 @@ return [
         'forgot_password' => \Callmeaf\Auth\Http\Controllers\V1\Api\ForgotPasswordController::class,
     ],
     'form_request_authorizers' => [
-        'forgot_password' => \Callmeaf\Auth\Utilities\V1\ForgotPassword\Api\ForgotPasswordFormRequestAuthorizer::class,
+        'forgot_password' => \Callmeaf\Auth\Utilities\V1\Api\ForgotPassword\ForgotPasswordFormRequestAuthorizer::class,
     ],
     'middlewares' => [
-        'forgot_password' => \Callmeaf\Auth\Utilities\V1\ForgotPassword\Api\ForgotPasswordMiddleware::class,
+        'forgot_password' => \Callmeaf\Auth\Utilities\V1\Api\ForgotPassword\ForgotPasswordMiddleware::class,
     ],
 ];

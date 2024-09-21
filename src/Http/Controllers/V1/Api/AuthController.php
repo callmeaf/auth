@@ -15,7 +15,7 @@ use Callmeaf\Auth\Http\Requests\V1\Api\AuthProfileImageUpdateRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\AuthUserShowRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\AuthUserUpdateRequest;
 use Callmeaf\Auth\Services\V1\AuthService;
-use Callmeaf\Auth\Utilities\V1\Register\Api\AuthResources;
+use Callmeaf\Auth\Utilities\V1\Api\Register\AuthResources;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 use Callmeaf\Media\Enums\MediaCollection;
 use Callmeaf\Media\Enums\MediaDisk;

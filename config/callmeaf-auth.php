@@ -54,14 +54,14 @@ return [
         ],
     ],
     'validations' => [
-        'register' => \Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestValidator::class,
-        'login' => \Callmeaf\Auth\Utilities\V1\Login\Api\LoginFormRequestValidator::class,
-        'auth' => \Callmeaf\Auth\Utilities\V1\Auth\Api\AuthFormRequestValidator::class,
-        'auth_web' => \Callmeaf\Auth\Utilities\V1\Auth\Web\AuthWebFormRequestValidator::class
+        'register' => \Callmeaf\Auth\Utilities\V1\Api\Register\RegisterFormRequestValidator::class,
+        'login' => \Callmeaf\Auth\Utilities\V1\Api\Login\LoginFormRequestValidator::class,
+        'auth' => \Callmeaf\Auth\Utilities\V1\Api\Auth\AuthFormRequestValidator::class,
+        'auth_web' => \Callmeaf\Auth\Utilities\V1\Web\Auth\AuthWebFormRequestValidator::class
     ],
     'resources' => [
-        'register' => \Callmeaf\Auth\Utilities\V1\Register\Api\RegisterResources::class,
-        'auth' => \Callmeaf\Auth\Utilities\V1\Register\Api\AuthResources::class,
+        'register' => \Callmeaf\Auth\Utilities\V1\Api\Register\RegisterResources::class,
+        'auth' => \Callmeaf\Auth\Utilities\V1\Api\Register\AuthResources::class,
     ],
     'controllers' => [
         'register' => \Callmeaf\Auth\Http\Controllers\V1\Api\RegisterController::class,
@@ -70,15 +70,15 @@ return [
         'auth_web' => \Callmeaf\Auth\Http\Controllers\V1\Web\AuthController::class,
     ],
     'form_request_authorizers' => [
-        'auth' => \Callmeaf\Auth\Utilities\V1\Auth\Api\AuthFormRequestAuthorizer::class,
-        'auth_web' => \Callmeaf\Auth\Utilities\V1\Auth\Web\AuthWebFormRequestAuthorizer::class,
-        'login' => \Callmeaf\Auth\Utilities\V1\Login\Api\LoginFormRequestAuthorizer::class,
-        'register' => \Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestAuthorizer::class,
+        'auth' => \Callmeaf\Auth\Utilities\V1\Api\Auth\AuthFormRequestAuthorizer::class,
+        'auth_web' => \Callmeaf\Auth\Utilities\V1\Web\Auth\AuthWebFormRequestAuthorizer::class,
+        'login' => \Callmeaf\Auth\Utilities\V1\Api\Login\LoginFormRequestAuthorizer::class,
+        'register' => \Callmeaf\Auth\Utilities\V1\Api\Register\RegisterFormRequestAuthorizer::class,
     ],
     'middlewares' => [
-        'register' => \Callmeaf\Auth\Utilities\V1\Register\Api\RegisterControllerMiddleware::class,
-        'login' => \Callmeaf\Auth\Utilities\V1\Login\Api\LoginControllerMiddleware::class,
-        'auth' => \Callmeaf\Auth\Utilities\V1\Auth\Api\AuthControllerMiddleware::class,
-        'auth_web' => \Callmeaf\Auth\Utilities\V1\Auth\Web\AuthWebControllerMiddleware::class,
+        'register' => \Callmeaf\Auth\Utilities\V1\Api\Register\RegisterControllerMiddleware::class,
+        'login' => \Callmeaf\Auth\Utilities\V1\Api\Login\LoginControllerMiddleware::class,
+        'auth' => \Callmeaf\Auth\Utilities\V1\Api\Auth\AuthControllerMiddleware::class,
+        'auth_web' => \Callmeaf\Auth\Utilities\V1\Web\Auth\AuthWebControllerMiddleware::class,
     ],
 ];

@@ -9,7 +9,7 @@ use Callmeaf\Auth\Http\Requests\V1\Api\RegisterRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\RegisterViaEmailRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\RegisterViaMobileRequest;
 use Callmeaf\Auth\Services\V1\AuthService;
-use Callmeaf\Auth\Utilities\V1\Register\Api\RegisterResources;
+use Callmeaf\Auth\Utilities\V1\Api\Register\RegisterResources;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 
 class RegisterController extends ApiController

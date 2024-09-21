@@ -1,6 +1,6 @@
 <?php
 
-namespace Callmeaf\Auth\Utilities\V1\Register\Api;
+namespace Callmeaf\Auth\Utilities\V1\Api\Register;
 
 use Callmeaf\Base\Utilities\V1\Resources;
 

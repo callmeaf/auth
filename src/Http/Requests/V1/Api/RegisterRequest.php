@@ -2,8 +2,8 @@
 
 namespace Callmeaf\Auth\Http\Requests\V1\Api;
 
-use Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestAuthorizer;
-use Callmeaf\Auth\Utilities\V1\Register\Api\RegisterFormRequestValidator;
+use Callmeaf\Auth\Utilities\V1\Api\Register\RegisterFormRequestAuthorizer;
+use Callmeaf\Auth\Utilities\V1\Api\Register\RegisterFormRequestValidator;
 use Callmeaf\User\Enums\UserType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
