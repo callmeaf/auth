@@ -16,12 +16,18 @@ class LoginController extends ApiController
     protected AuthService $authService;
     public function __construct()
     {
-        app(config('callmeaf-auth.middlewares.login'))($this);
         $this->authService = app(config('callmeaf-auth.service'));
     }
+
+    public static function middleware(): array
+    {
+        return app(config('callmeaf-auth.middlewares.login'))();
+    }
+
     public function loginViaEmail(LoginViaEmailRequest $request)
     {
         try {
+            logger('passed');
             $token = $this->authService
                 ->loginViaEmail(email: $request->get('email'),password: $request->get('password'),rememberMe: $request->has('remember_me'),events: [
                     LoggedInViaEmail::class

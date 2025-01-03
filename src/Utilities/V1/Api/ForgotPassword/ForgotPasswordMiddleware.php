@@ -4,21 +4,20 @@ namespace Callmeaf\Auth\Utilities\V1\Api\ForgotPassword;
 
 use Callmeaf\Base\Http\Controllers\BaseController;
 use Callmeaf\Base\Utilities\V1\ControllerMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
 class ForgotPasswordMiddleware extends ControllerMiddleware
 {
-    public function __invoke(BaseController $controller): void
+    public function __invoke(): array
     {
-        $controller->middleware([
-            'guest:sanctum',
-        ])->only([
-            'forgotPassword',
-            'updatePassword',
-        ]);
-        $controller->middleware([
-            'throttle:1,1',
-        ])->only([
-            'forgotPassword',
-        ]);
+        return [
+            new Middleware(middleware: 'guest:sanctum',only: [
+                'forgotPassword',
+                'updatePassword',
+            ]),
+            new Middleware(middleware: 'throttle:1,1',only: [
+                'forgotPassword',
+            ]),
+        ];
     }
 }

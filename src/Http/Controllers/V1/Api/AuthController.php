@@ -26,9 +26,13 @@ class AuthController extends ApiController
     protected AuthResources $authResources;
     public function __construct()
     {
-        app(config('callmeaf-auth.middlewares.auth'))($this);
         $this->authService = app(config('callmeaf-auth.service'));
         $this->authResources = app(config('callmeaf-auth.resources.auth'));
+    }
+
+    public static function middleware(): array
+    {
+        return app(config('callmeaf-auth.middlewares.auth'))();
     }
 
     public function userShow(AuthUserShowRequest $request)

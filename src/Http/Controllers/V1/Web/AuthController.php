@@ -15,6 +15,11 @@ class AuthController extends WebController
         $this->authService = app(config('callmeaf-auth.service'));
     }
 
+    public static function middleware(): array
+    {
+        return app(config('callmeaf-auth.middlewares.auth_web'))();
+    }
+
     public function verifyEmail(AuthVerifyEmailRequest $request, $userId)
     {
         try {
