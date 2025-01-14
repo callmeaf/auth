@@ -9,7 +9,7 @@ class AuthWebFormRequestAuthorizer extends FormRequestAuthorizer
     public function verifyEmail(): bool
     {
         if(array_key_exists('auth',config('callmeaf-auth.middlewares.verify_email'))) {
-            $authUser = $this->request->user();
+            $authUser = authUser(request: $this->request);
             if (! hash_equals((string) $authUser->getKey(), (string) $this->request->route('id'))) {
                 return false;
             }

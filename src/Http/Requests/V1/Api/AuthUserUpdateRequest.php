@@ -22,7 +22,7 @@ class AuthUserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->user()->id;
+        $userId = authUser(request: $this)->id;
         return validationManager(rules: [
             'first_name' => ['string','max:50'],
             'last_name' => ['string','max:50'],
