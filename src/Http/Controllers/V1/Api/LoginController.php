@@ -27,7 +27,6 @@ class LoginController extends ApiController
     public function loginViaEmail(LoginViaEmailRequest $request)
     {
         try {
-            logger('passed');
             $token = $this->authService
                 ->loginViaEmail(email: $request->get('email'),password: $request->get('password'),rememberMe: $request->has('remember_me'),events: [
                     LoggedInViaEmail::class

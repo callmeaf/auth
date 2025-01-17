@@ -12,6 +12,7 @@ class AuthControllerMiddleware extends ControllerMiddleware
     {
         return [
             new Middleware(middleware: 'auth:sanctum',only: [
+                'checkUser',
                 'userShow',
                 'userUpdate',
                 'passwordStore',

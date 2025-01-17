@@ -6,6 +6,10 @@ use Callmeaf\Base\Utilities\V1\FormRequestAuthorizer;
 
 class AuthFormRequestAuthorizer extends FormRequestAuthorizer
 {
+    public function checkUser(): bool
+    {
+        return !!$this->request->user();
+    }
     public function userShow(): bool
     {
         return true;

@@ -6,6 +6,10 @@ use Callmeaf\Base\Utilities\V1\FormRequestValidator;
 
 class AuthFormRequestValidator extends FormRequestValidator
 {
+    public function checkUser(): array
+    {
+        return [];
+    }
     public function userShow(): array
     {
         return [];

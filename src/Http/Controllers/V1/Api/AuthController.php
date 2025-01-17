@@ -8,6 +8,7 @@ use Callmeaf\Auth\Events\PasswordUpdated;
 use Callmeaf\Auth\Events\ProfileImageUpdated;
 use Callmeaf\Auth\Events\UserShowed;
 use Callmeaf\Auth\Events\UserUpdated;
+use Callmeaf\Auth\Http\Requests\V1\Api\AuthCheckUserRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\AuthLogoutRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\AuthPasswordStoreRequest;
 use Callmeaf\Auth\Http\Requests\V1\Api\AuthPasswordUpdateRequest;
@@ -33,6 +34,18 @@ class AuthController extends ApiController
     public static function middleware(): array
     {
         return app(config('callmeaf-auth.middlewares.auth'))();
+    }
+
+    public function checkUser(AuthCheckUserRequest $request)
+    {
+        try {
+            return apiResponse([
+                // if user authenticated with token in header, this response will send, otherwise 403 or 401 response occurred
+            ],__('callmeaf-base::v1.successful_logged_in'));
+        } catch (\Exception $exception) {
+            report($exception);
+            return apiResponse([],$exception);
+        }
     }
 
     public function userShow(AuthUserShowRequest $request)
