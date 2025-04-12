@@ -1,0 +1,26 @@
+{
+    "name": "callmeaf/auth",
+    "description": "Manage Authenticate users",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Callmeaf\\Auth\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "callmeaf",
+            "email": "alikhoshkar2000@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Callmeaf\\Auth\\CallmeafAuthServiceProvider"
+            ]
+        }
+    }
+}
