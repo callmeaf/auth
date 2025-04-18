@@ -39,8 +39,6 @@ class AuthEmailStrategy implements AuthStrategyInterface
     public function attempt(string $identifier, bool $remember = false)
     {
         $user = $this->authRepo->findBy(column: 'email', value: $identifier);
-        Auth::loginUsingId($user->resource->id, remember: $remember);
-
-        return $user;
+        return Auth::loginUsingId($user->resource->id, remember: $remember);
     }
 }
