@@ -24,7 +24,13 @@ class AuthEmailStrategy implements AuthStrategyInterface
 
     public function verifyOtp(string $identifier, string $code): bool
     {
-        return true;
+        $result = $this->otpRepo->verifyCode(identifier: $identifier, code: $code);
+
+        if ($result) {
+            $this->otpRepo->expireCode(code: $code);
+        }
+
+        return $result;
     }
 
     public function createUser(string $identifier)
