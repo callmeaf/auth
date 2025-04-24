@@ -24,13 +24,7 @@ class AuthController extends ApiController implements HasMiddleware
 
     public function login()
     {
-        $authResource = $this->authRepo->login(identifier: $this->request->get('identifier'), code: $this->request->get('code'), remember: $this->request->get('remember', false));
-
-        if (! isPostmanRequest()) {
-            $this->request->session()->regenerate();
-        }
-
-        return $authResource;
+        return $this->authRepo->login(identifier: $this->request->get('identifier'), code: $this->request->get('code'), remember: $this->request->get('remember', false));
     }
 
     public function user()
@@ -41,13 +35,6 @@ class AuthController extends ApiController implements HasMiddleware
     public function logout()
     {
         $this->authRepo->logout();
-
-        if (! isPostmanRequest()) {
-            $this->request->session()->invalidate();
-
-            $this->request->session()->regenerateToken();
-        }
-
 
         return response()->json();
     }
