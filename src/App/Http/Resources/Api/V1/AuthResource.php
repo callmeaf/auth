@@ -27,7 +27,7 @@ class AuthResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
-            $this->mergeWhen(isPostmanRequest() && ! ! $this->token, [
+            $this->mergeWhen(! empty($this->token), [
                 'token' => $this->token,
             ])
         ];
