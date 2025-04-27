@@ -66,4 +66,12 @@ class AuthRepo extends CoreRepo implements AuthRepoInterface
             default => true,
         };
     }
+
+    public function updateProfile(array $data)
+    {
+        $user = $this->user()->resource;
+        $user->update($data);
+
+        return $this->toResource($user->fresh());
+    }
 }

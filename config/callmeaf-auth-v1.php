@@ -51,6 +51,7 @@ return [
             'login' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthLoginRequest::class,
             'user' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthUserRequest::class,
             'logout' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthLogoutRequest::class,
+            'update_profile' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthProfileUpdateRequest::class,
         ],
         RequestType::WEB->value => [
             'login' => \Callmeaf\Auth\App\Http\Requests\Web\V1\AuthLoginRequest::class,

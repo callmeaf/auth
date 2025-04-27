@@ -14,4 +14,5 @@ Route::prefix($prefix)->as($as)->middleware($middleware)->controller($controller
     Route::post('/login', 'login');
     Route::get('/user', 'user');
     Route::post('/logout', 'logout');
+    Route::patch('/profile','profileUpdate');
 });

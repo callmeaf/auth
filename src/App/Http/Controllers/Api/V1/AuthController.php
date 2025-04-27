@@ -18,7 +18,7 @@ class AuthController extends ApiController implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware(middleware: 'auth:sanctum', only: ['logout', 'user'])
+            new Middleware(middleware: 'auth:sanctum', except: ['login'])
         ];
     }
 
@@ -37,5 +37,10 @@ class AuthController extends ApiController implements HasMiddleware
         $this->authRepo->logout();
 
         return response()->json();
+    }
+
+    public function profileUpdate()
+    {
+        return $this->authRepo->updateProfile(data: $this->request->validated());
     }
 }

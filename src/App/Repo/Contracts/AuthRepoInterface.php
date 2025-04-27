@@ -26,4 +26,10 @@ interface AuthRepoInterface extends CoreRepoInterface
     public function user();
 
     public function logout(): int;
+
+    /**
+     * @param array $data
+     * @return ApiAuthResource|WebAuthResource|AdminAuthResource
+     */
+    public function updateProfile(array $data);
 }
