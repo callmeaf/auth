@@ -74,4 +74,14 @@ class AuthRepo extends CoreRepo implements AuthRepoInterface
 
         return $this->toResource($user->fresh());
     }
+
+    public function acceptTerms(bool $value)
+    {
+        $user = $this->user()->resource;
+        $user->update([
+            'accepted_terms' => $value,
+        ]);
+
+        return $this->toResource($user->fresh());
+    }
 }

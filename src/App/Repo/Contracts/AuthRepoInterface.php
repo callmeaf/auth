@@ -32,4 +32,10 @@ interface AuthRepoInterface extends CoreRepoInterface
      * @return ApiAuthResource|WebAuthResource|AdminAuthResource
      */
     public function updateProfile(array $data);
+
+    /**
+     * @param bool $value
+     * @return ApiAuthResource|WebAuthResource|AdminAuthResource
+     */
+    public function acceptTerms(bool $value);
 }

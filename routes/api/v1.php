@@ -15,4 +15,5 @@ Route::prefix($prefix)->as($as)->middleware($middleware)->controller($controller
     Route::get('/user', 'user');
     Route::post('/logout', 'logout');
     Route::patch('/profile','profileUpdate');
+    Route::patch('/accept_terms','acceptTerms');
 });

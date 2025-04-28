@@ -43,4 +43,9 @@ class AuthController extends ApiController implements HasMiddleware
     {
         return $this->authRepo->updateProfile(data: $this->request->validated());
     }
+
+    public function acceptTerms()
+    {
+        return $this->authRepo->acceptTerms(value: $this->request->boolean('accept_terms'));
+    }
 }
