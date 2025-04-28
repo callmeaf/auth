@@ -24,7 +24,7 @@ class AuthAcceptTermsRequest extends FormRequest
     public function rules(AuthRepoInterface $authRepo): array
     {
         return [
-            'accept_terms' => ['required','boolean'],
+            'accept_terms' => ['required','accepted'],
         ];
     }
 }
