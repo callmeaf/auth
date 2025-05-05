@@ -49,4 +49,12 @@ class AuthMobileStrategy implements AuthStrategyInterface
         $user = $this->authRepo->findBy(column: 'mobile', value: $identifier);
         return Auth::loginUsingId($user->resource->id, remember: $remember);
     }
+
+    public function attemptViaPassword(string $identifier, string $password, bool $remember = false): bool
+    {
+        return Auth::attempt([
+            'mobile' => $identifier,
+            'password' => $password
+        ],remember: $remember);
+    }
 }

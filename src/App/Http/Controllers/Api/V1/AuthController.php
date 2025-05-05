@@ -18,13 +18,18 @@ class AuthController extends ApiController implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware(middleware: 'auth:sanctum', except: ['login'])
+            new Middleware(middleware: 'auth:sanctum', except: ['login','loginViaPassword'])
         ];
     }
 
     public function login()
     {
         return $this->authRepo->login(identifier: $this->request->get('identifier'), code: $this->request->get('code'), remember: $this->request->get('remember', false));
+    }
+
+    public function loginViaPassword()
+    {
+        return $this->authRepo->loginViaPassword(identifier: $this->request->get('identifier'),password: $this->request->get('password'),remember: $this->request->get('remember',false));
     }
 
     public function user()
@@ -42,6 +47,11 @@ class AuthController extends ApiController implements HasMiddleware
     public function profileUpdate()
     {
         return $this->authRepo->updateProfile(data: $this->request->validated());
+    }
+
+    public function passwordUpdate()
+    {
+        return $this->authRepo->updatePassword(password: $this->request->get('password'),code: $this->request->get('code'));
     }
 
     public function acceptTerms()

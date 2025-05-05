@@ -23,4 +23,12 @@ interface AuthStrategyInterface
      * @return TModel
      */
     public function attempt(string $identifier, bool $remember = false);
+
+    /**
+     * @param string $identifier
+     * @param string $password
+     * @param bool $remember
+     * @return bool
+     */
+    public function attemptViaPassword(string $identifier,string $password,bool $remember = false): bool;
 }

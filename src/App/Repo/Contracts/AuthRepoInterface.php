@@ -17,6 +17,10 @@ interface AuthRepoInterface extends CoreRepoInterface
      * @return ApiAuthResource|WebAuthResource|AdminAuthResource
      */
     public function login(string $identifier, string $code, bool $remember = false);
+    /**
+     * @return ApiAuthResource|WebAuthResource|AdminAuthResource
+     */
+    public function loginViaPassword(string $identifier, string $password, bool $remember = false);
 
     public function newToken(): string;
 
@@ -32,6 +36,13 @@ interface AuthRepoInterface extends CoreRepoInterface
      * @return ApiAuthResource|WebAuthResource|AdminAuthResource
      */
     public function updateProfile(array $data);
+
+    /**
+     * @param string $password
+     * @param string $code
+     * @return ApiAuthResource|WebAuthResource|AdminAuthResource
+     */
+    public function updatePassword(string $password,string $code);
 
     /**
      * @param bool $value
