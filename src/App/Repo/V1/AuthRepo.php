@@ -2,6 +2,7 @@
 
 namespace Callmeaf\Auth\App\Repo\V1;
 
+use Callmeaf\Auth\App\Exceptions\InvalidCredentialsAuthenticateException;
 use Callmeaf\Auth\App\Exceptions\InvalidOtpCodeException;
 use Callmeaf\Auth\App\Exceptions\UserAccountIsInActiveException;
 use Callmeaf\Auth\App\Exceptions\UserAccountIsPendingException;
@@ -40,7 +41,7 @@ class AuthRepo extends CoreRepo implements AuthRepoInterface
     {
         $authStrategy = $this->strategy(identifier: $identifier);
         if( ! $authStrategy->attemptViaPassword(identifier: $identifier,password: $password,remember: $remember)) {
-            throw new AuthenticationException();
+            throw new InvalidCredentialsAuthenticateException();
         }
 
         $user = $this->user()->resource;
