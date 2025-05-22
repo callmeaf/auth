@@ -40,6 +40,8 @@ class AuthEmailStrategy implements AuthStrategyInterface
         return $this->authRepo->trashed(false)->getQuery()->where('email', $identifier)->firstOr(function () use ($identifier) {
             return $this->authRepo->getQuery()->create([
                 'email' => $identifier,
+                'status' => $this->authRepo->config['user_default_status'],
+                'type' => $this->authRepo->config['user_default_type'],
             ]);
         });
     }

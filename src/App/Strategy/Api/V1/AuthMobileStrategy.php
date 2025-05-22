@@ -41,6 +41,8 @@ class AuthMobileStrategy implements AuthStrategyInterface
         return $this->authRepo->trashed(false)->getQuery()->where('mobile', $identifier)->firstOr(function () use ($identifier) {
             return $this->authRepo->getQuery()->create([
                 'mobile' => $identifier,
+                'status' => $this->authRepo->config['user_default_status'],
+                'type' => $this->authRepo->config['user_default_type'],
             ]);
         });
     }

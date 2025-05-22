@@ -2,6 +2,7 @@
 
 namespace Callmeaf\Auth\App\Repo\Contracts;
 
+use App\Models\User;
 use Callmeaf\Auth\App\Models\Auth;
 use Callmeaf\Base\App\Repo\Contracts\CoreRepoInterface;
 use Callmeaf\Auth\App\Http\Resources\Api\V1\AuthResource as ApiAuthResource;
@@ -30,6 +31,15 @@ interface AuthRepoInterface extends CoreRepoInterface
     public function user();
 
     public function logout(): int;
+
+    /**
+     * @param User $user
+     * @return bool
+     * @throws \Callmeaf\Auth\App\Exceptions\UserAccountIsInActiveException
+     * @throws \Callmeaf\Auth\App\Exceptions\UserAccountIsPendingException
+     * @throws \Callmeaf\Auth\App\Exceptions\UserAccountSoftDeletedException
+     */
+    public function checkUserStatus($user): bool;
 
     /**
      * @param array $data

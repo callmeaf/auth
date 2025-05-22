@@ -6,6 +6,7 @@ use Callmeaf\Auth\App\Http\Resources\Api\V1\AuthResource;
 use Callmeaf\Auth\App\Repo\Contracts\AuthRepoInterface;
 use Callmeaf\Auth\App\Strategy\Contracts\AuthStrategyInterface;
 use Callmeaf\Otp\App\Repo\Contracts\OtpRepoInterface;
+use Callmeaf\User\App\Enums\UserStatus;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -38,6 +39,8 @@ class AuthEmailStrategy implements AuthStrategyInterface
         return $this->authRepo->trashed(false)->getQuery()->where('email', $identifier)->firstOr(function () use ($identifier) {
             return $this->authRepo->getQuery()->create([
                 'email' => $identifier,
+                'status' => $this->authRepo->config['user_default_status'],
+                'type' => $this->authRepo->config['user_default_type'],
             ]);
         });
     }

@@ -2,8 +2,8 @@
 
 namespace Callmeaf\Auth\App\Http\Requests\Admin\V1;
 
+use Callmeaf\Auth\App\Repo\Contracts\AuthRepoInterface;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class AuthUserRequest extends FormRequest
 {
@@ -12,7 +12,14 @@ class AuthUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::check();
+        if($user = $this->user()) {
+            /**
+             * @var AuthRepoInterface $authRepo
+             */
+            $authRepo = app(AuthRepoInterface::class);
+            return $authRepo->checkUserStatus(user: $user);
+        }
+        return false;
     }
 
     /**

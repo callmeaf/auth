@@ -97,4 +97,6 @@ return [
         'status' => \Callmeaf\User\App\Enums\UserStatus::class,
         'type' => \Callmeaf\User\App\Enums\UserType::class,
     ],
+    'user_default_status' => \Callmeaf\User\App\Enums\UserStatus::ACTIVE->value,
+    'user_default_type' => \Callmeaf\User\App\Enums\UserType::NORMAL->value
 ];

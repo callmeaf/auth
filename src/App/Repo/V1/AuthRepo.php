@@ -4,6 +4,7 @@ namespace Callmeaf\Auth\App\Repo\V1;
 
 use Callmeaf\Auth\App\Exceptions\InvalidCredentialsAuthenticateException;
 use Callmeaf\Auth\App\Exceptions\InvalidOtpCodeException;
+use Callmeaf\Auth\App\Exceptions\UserAccountHasNoStatusException;
 use Callmeaf\Auth\App\Exceptions\UserAccountIsInActiveException;
 use Callmeaf\Auth\App\Exceptions\UserAccountIsPendingException;
 use Callmeaf\Auth\App\Exceptions\UserAccountSoftDeletedException;
@@ -28,7 +29,6 @@ class AuthRepo extends CoreRepo implements AuthRepoInterface
         }
 
         $user = $authStrategy->createUser(identifier: $identifier);
-
         $this->checkUserStatus(user: $user);
 
         $user = $authStrategy->attempt(identifier: $identifier, remember: $remember);
@@ -66,20 +66,14 @@ class AuthRepo extends CoreRepo implements AuthRepoInterface
         return Auth::user()->tokens()->delete();
     }
 
-    /**
-     * @param \Callmeaf\Auth\App\Models\Auth $user
-     * @return bool
-     * @throws UserAccountIsInActiveException
-     * @throws UserAccountIsPendingException
-     * @throws UserAccountSoftDeletedException
-     */
-    private function checkUserStatus($user): bool
+    public function checkUserStatus($user): bool
     {
         return match (true) {
             $user->isInActive() => throw new UserAccountIsInActiveException(),
             $user->isPending() => throw new UserAccountIsPendingException(),
             $user->trashed() => throw new UserAccountSoftDeletedException(),
-            default => true,
+            $user->isActive() => true,
+            default => throw new UserAccountHasNoStatusException(),
         };
     }
 
