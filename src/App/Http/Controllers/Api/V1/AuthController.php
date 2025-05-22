@@ -46,7 +46,7 @@ class AuthController extends ApiController implements HasMiddleware
 
     public function profileUpdate()
     {
-        return $this->authRepo->updateProfile(data: $this->request->validated());
+        return $this->authRepo->updateProfile(data: $this->request->validated(),image: $this->request->file('image'));
     }
 
     public function passwordUpdate()

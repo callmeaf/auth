@@ -16,6 +16,7 @@ use Callmeaf\Otp\App\Repo\Contracts\OtpRepoInterface;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AuthRepo extends CoreRepo implements AuthRepoInterface
 {
@@ -77,12 +78,18 @@ class AuthRepo extends CoreRepo implements AuthRepoInterface
         };
     }
 
-    public function updateProfile(array $data)
+    public function updateProfile(array $data,?UploadedFile $image = null)
     {
-        $user = $this->user()->resource;
-        $user->update($data);
+        $user = $this->user();
+        $user->resource->update($data);
 
-        return $this->toResource($user->fresh());
+        if($image) {
+            $this->addMedia(id: $user,file: $image);
+        }
+
+        return $this->toResource($user->resource->fresh()->loadMissing([
+            'image'
+        ]));
     }
 
     public function updatePassword(string $password, string $code)

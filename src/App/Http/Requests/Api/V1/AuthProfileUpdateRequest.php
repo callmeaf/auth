@@ -27,7 +27,8 @@ class AuthProfileUpdateRequest extends FormRequest
         return [
             'first_name' => ['required','string','max:255'],
             'last_name' => ['required','string','max:255'],
-            'mobile' => ['required','digits:11','starts_with:09',Rule::unique($authRepo->getTable(),'mobile')->ignore($this->user()->id)]
+            'mobile' => ['required','digits:11','starts_with:09',Rule::unique($authRepo->getTable(),'mobile')->ignore($this->user()->id)],
+            'image' => ['nullable','file','mimes:png,jpg,jpeg','max:2048']
         ];
     }
 }
