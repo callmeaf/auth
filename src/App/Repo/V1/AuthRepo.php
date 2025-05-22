@@ -59,7 +59,9 @@ class AuthRepo extends CoreRepo implements AuthRepoInterface
 
     public function user()
     {
-        return $this->toResource(model: Auth::user());
+        return $this->toResource(model: Auth::user()->loadMissing([
+            'image'
+        ]));
     }
 
     public function logout(): int
