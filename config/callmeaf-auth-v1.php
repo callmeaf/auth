@@ -49,9 +49,11 @@ return [
     'requests' => [
         RequestType::API->value => [
             'login' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthLoginRequest::class,
+            'loginViaPassword' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthLoginViaPasswordRequest::class,
             'user' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthUserRequest::class,
             'logout' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthLogoutRequest::class,
-            'updateProfile' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthProfileUpdateRequest::class,
+            'profileUpdate' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthProfileUpdateRequest::class,
+            'passwordUpdate' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthPasswordUpdateRequest::class,
             'acceptTerms' => \Callmeaf\Auth\App\Http\Requests\Api\V1\AuthAcceptTermsRequest::class,
         ],
         RequestType::WEB->value => [
