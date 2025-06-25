@@ -2,13 +2,13 @@
 
 namespace Callmeaf\Auth\App\Http\Resources\Admin\V1;
 
-use Callmeaf\Auth\App\Models\Auth;
+use App\Models\User;
 use Callmeaf\Media\App\Repo\Contracts\MediaRepoInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property-read Auth $resource
+ * @property-read User $resource
  */
 class AuthResource extends JsonResource
 {

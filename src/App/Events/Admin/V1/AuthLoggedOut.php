@@ -2,7 +2,7 @@
 
 namespace Callmeaf\Auth\App\Events\Admin\V1;
 
-use Callmeaf\Auth\App\Models\Auth;
+use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -14,8 +14,9 @@ class AuthLoggedOut
 
     /**
      * Create a new event instance.
+     * @var User $user
      */
-    public function __construct(public Auth $user)
+    public function __construct(public $user)
     {
         //
     }
